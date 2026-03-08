@@ -13,3 +13,4 @@ C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\SGA.Pers
 C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\refint\SGA.Persistence.dll
 C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\SGA.Persistence.pdb
 C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\ref\SGA.Persistence.dll
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\SGA.Persistence.sourcelink.json

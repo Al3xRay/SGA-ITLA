@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SGA.Application.Dtos;
+using SGA.Domain.Entidades.Configuracion;
 
-namespace SGAITLA.Application.Dtos.Transporte
+namespace SGA.Application.Dtos.Transporte;
+
+public class SaveAutobusDto : DtoBase
 {
-    internal class SaveAutobusDto
-    {
-    }
+
+    public string Placa {  get; set; } = string.Empty;
+    public string Marca {  get; set; } = string.Empty;
+    public string Modelo {  get; set; } = string.Empty;
+    public int Capacidad {  get; set; }
+
+    public EstadoAutobus Estado { get; set; } = EstadoAutobus.Disponible;
+
 }
+
+

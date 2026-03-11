@@ -1,0 +1,30 @@
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Core\bin\Debug\net8.0\SGA.Application.deps.json
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Core\bin\Debug\net8.0\SGA.Application.dll
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Core\bin\Debug\net8.0\SGA.Application.pdb
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Core\bin\Debug\net8.0\SGA.Domain.dll
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Core\bin\Debug\net8.0\SGA.Domain.pdb
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Core\obj\Debug\net8.0\SGA.Application.csproj.AssemblyReference.cache
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Core\obj\Debug\net8.0\SGA.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Core\obj\Debug\net8.0\SGA.Application.AssemblyInfoInputs.cache
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Core\obj\Debug\net8.0\SGA.Application.AssemblyInfo.cs
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Core\obj\Debug\net8.0\SGA.Application.csproj.CoreCompileInputs.cache
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Core\obj\Debug\net8.0\SGA.Appl.67D11825.Up2Date
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Core\obj\Debug\net8.0\SGA.Application.dll
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Core\obj\Debug\net8.0\refint\SGA.Application.dll
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Core\obj\Debug\net8.0\SGA.Application.pdb
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Core\obj\Debug\net8.0\ref\SGA.Application.dll
+C:\Users\bryan\OneDrive\Escritorio\ITLA\Cautri 4\Programacion 2\SGA-ITLA\SGA-ITLA-master\SGA.Core\obj\Debug\net8.0\SGA.Application.csproj.AssemblyReference.cache
+C:\Users\bryan\OneDrive\Escritorio\ITLA\Cautri 4\Programacion 2\SGA-ITLA\SGA-ITLA-master\SGA.Core\obj\Debug\net8.0\SGA.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bryan\OneDrive\Escritorio\ITLA\Cautri 4\Programacion 2\SGA-ITLA\SGA-ITLA-master\SGA.Core\obj\Debug\net8.0\SGA.Application.AssemblyInfoInputs.cache
+C:\Users\bryan\OneDrive\Escritorio\ITLA\Cautri 4\Programacion 2\SGA-ITLA\SGA-ITLA-master\SGA.Core\obj\Debug\net8.0\SGA.Application.AssemblyInfo.cs
+C:\Users\bryan\OneDrive\Escritorio\ITLA\Cautri 4\Programacion 2\SGA-ITLA\SGA-ITLA-master\SGA.Core\obj\Debug\net8.0\SGA.Application.csproj.CoreCompileInputs.cache
+C:\Users\bryan\OneDrive\Escritorio\ITLA\Cautri 4\Programacion 2\SGA-ITLA\SGA-ITLA-master\SGA.Core\obj\Debug\net8.0\SGA.Application.dll
+C:\Users\bryan\OneDrive\Escritorio\ITLA\Cautri 4\Programacion 2\SGA-ITLA\SGA-ITLA-master\SGA.Core\obj\Debug\net8.0\refint\SGA.Application.dll
+C:\Users\bryan\OneDrive\Escritorio\ITLA\Cautri 4\Programacion 2\SGA-ITLA\SGA-ITLA-master\SGA.Core\obj\Debug\net8.0\SGA.Application.pdb
+C:\Users\bryan\OneDrive\Escritorio\ITLA\Cautri 4\Programacion 2\SGA-ITLA\SGA-ITLA-master\SGA.Core\bin\Debug\net8.0\SGA.Application.deps.json
+C:\Users\bryan\OneDrive\Escritorio\ITLA\Cautri 4\Programacion 2\SGA-ITLA\SGA-ITLA-master\SGA.Core\bin\Debug\net8.0\SGA.Application.dll
+C:\Users\bryan\OneDrive\Escritorio\ITLA\Cautri 4\Programacion 2\SGA-ITLA\SGA-ITLA-master\SGA.Core\bin\Debug\net8.0\SGA.Application.pdb
+C:\Users\bryan\OneDrive\Escritorio\ITLA\Cautri 4\Programacion 2\SGA-ITLA\SGA-ITLA-master\SGA.Core\bin\Debug\net8.0\SGA.Domain.dll
+C:\Users\bryan\OneDrive\Escritorio\ITLA\Cautri 4\Programacion 2\SGA-ITLA\SGA-ITLA-master\SGA.Core\bin\Debug\net8.0\SGA.Domain.pdb
+C:\Users\bryan\OneDrive\Escritorio\ITLA\Cautri 4\Programacion 2\SGA-ITLA\SGA-ITLA-master\SGA.Core\obj\Debug\net8.0\SGA.Appl.67D11825.Up2Date
+C:\Users\bryan\OneDrive\Escritorio\ITLA\Cautri 4\Programacion 2\SGA-ITLA\SGA-ITLA-master\SGA.Core\obj\Debug\net8.0\ref\SGA.Application.dll

@@ -114,7 +114,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj": {
+                "projectPath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

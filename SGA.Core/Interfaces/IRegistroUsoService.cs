@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SGA.Domain.Base;
+using SGA.Application.Dtos.Operaciones;
 
-namespace SGAITLA.Application.Interfaces
+namespace SGA.Application.Interfaces;
+
+public interface IRegistroUsoService
 {
-    internal interface IRegistroUsoService
-    {
-    }
+    Task<OperationResult<List<RegistroUsoDto>>> GetAll();
+    Task<OperationResult<RegistroUsoDto>> GetById(int id);
+    Task<OperationResult<List<RegistroUsoDto>>> GetByPersonaId(int personaId);
+    Task<OperationResult<List<RegistroUsoDto>>> GetByViajeId(int viajeId);
+    Task<OperationResult<List<RegistroUsoDto>>> GetByFecha(DateTime fecha);
 }

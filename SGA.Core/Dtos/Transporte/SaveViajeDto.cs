@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SGA.Application.Dtos;
 
-namespace SGAITLA.Application.Dtos.Transporte
+namespace SGA.Application.Dtos.Transporte;
+
+public class SaveViajeDto : DtoBase
 {
-    internal class SaveViajeDto
-    {
-    }
+    public int RutaId { get; set; }
+    public int AutobusId { get; set; }
+    public int ConductorId { get; set; }
+    public DateTime FechaSalida { get; set; }
+    public DateTime? FechaLlegadaEstimada { get; set; }
 }

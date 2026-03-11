@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{88D9A7EC-1AE5-4DAF-8911-444BC0E57EF2}|SGA.Core\\SGA.Application.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.core\\servicios\\autobusservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{88D9A7EC-1AE5-4DAF-8911-444BC0E57EF2}|SGA.Core\\SGA.Application.csproj|solutionrelative:sga.core\\servicios\\autobusservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\transporte\\autobus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\transporte\\autobus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +18,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Autobus.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Transporte\\Autobus.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Transporte\\Autobus.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Transporte\\Autobus.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Transporte\\Autobus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T18:39:53.657Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AutobusService.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Core\\Servicios\\AutobusService.cs",
+              "RelativeDocumentMoniker": "SGA.Core\\Servicios\\AutobusService.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Core\\Servicios\\AutobusService.cs",
+              "RelativeToolTip": "SGA.Core\\Servicios\\AutobusService.cs",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAgwE8AAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T18:36:30.256Z",
+              "EditorCaption": ""
             }
           ]
         }

@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SGA.Application.Dtos;
+using SGA.Application.Dtos.Operaciones;
 
-namespace SGAITLA.Application.Dtos.Operaciones
+namespace SGA.Application.Dtos.Operaciones;
+
+public class SaveAutorizacionDto : DtoBase
 {
-    internal class SaveAutorizacionDto
-    {
-    }
+
+    public int PersonaId { get; set; }
+    public int TipoAutorizacionId { get; set; }
+    public decimal SaldoInicial { get; set; }
+    public int? ViajesIniciales { get; set; }
+    public DateTime FechaVencimiento { get; set; }
+
 }

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SGA.Application.Dtos;
 
-namespace SGAITLA.Application.Dtos.Personas
+namespace SGA.Application.Dtos.Personas;
+
+
+public class SaveEstudianteDto : DtoBase
 {
-    internal class SaveEstudianteDto
-    {
-    }
+    public int PersonaId { get; set; }
+    public string Matricula { get; set; } = string.Empty;
+    public string? Carrera { get; set; }
 }

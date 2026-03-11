@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SGA.Application.Dtos;
 
-namespace SGAITLA.Application.Dtos.Operaciones
+namespace SGA.Application.Dtos.Operaciones;
+
+public class IncidenciaDto : DtoBase
 {
-    internal class IncidenciaDto
-    {
-    }
+    public int Id { get; set; }
+    public int ViajeId { get; set; }
+    public string Descripcion { get; set; } = string.Empty;
+    public DateTime FechaReporte { get; set; }
+    public bool Resuelta { get; set; }
 }

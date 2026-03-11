@@ -14,4 +14,6 @@ public class Autobus : AuditEntity
 
     public EstadoAutobus Estado { get; set; } = null!;
     public ICollection<Viaje> Viajes { get; set; } = new List<Viaje>();
+    public EstadoAutobus EstadoAutobus { get; set; }
+
 }

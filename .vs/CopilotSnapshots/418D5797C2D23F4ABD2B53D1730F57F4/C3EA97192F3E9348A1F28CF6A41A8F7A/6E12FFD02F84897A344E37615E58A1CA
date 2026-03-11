@@ -1,0 +1,40 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SGA.Domain.Entidades.Transporte;
+
+namespace SGA.Infrastructure.Configurations.Transporte
+{
+    /// <summary>
+    /// Configuración para la entidad Parada.
+    /// </summary>
+    public class ParadaConfiguration : BaseEntityConfiguration<Parada>
+    {
+        protected override void ConfigureEntity(EntityTypeBuilder<Parada> builder)
+        {
+            builder.ToTable("Paradas");
+
+            builder.HasKey(e => e.Id);
+
+            builder.Property(e => e.Nombre)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Property(e => e.Ubicacion)
+                .HasMaxLength(255);
+
+            builder.Property(e => e.Latitud)
+                .HasColumnType("decimal(10, 8)");
+
+            builder.Property(e => e.Longitud)
+                .HasColumnType("decimal(11, 8)");
+
+            builder.Property(e => e.Orden)
+                .IsRequired();
+
+            builder.HasOne(e => e.Ruta)
+                .WithMany(r => r.Paradas)
+                .HasForeignKey(e => e.RutaId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
+    }
+}

@@ -1,12 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SGA.Domain.Entidades.Personas;
 
 namespace SGA.Persistence.Configurations.Personas
 {
-    internal class AdministradorConfiguration
+    public class AdministradorConfiguration : BaseEntityConfiguration<Administrador>
     {
+        protected override void ConfigureEntity(EntityTypeBuilder<Administrador> builder)
+        {
+            builder.ToTable("Administradores");
+            builder.HasKey(e => e.Id);
+
+            builder.Property(e => e.NivelAcceso)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+
+            builder.Property(e => e.AreaResponsable)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Property(e => e.FechaAsignacion)
+                .HasColumnType("date")
+                .IsRequired();
+        }
     }
 }

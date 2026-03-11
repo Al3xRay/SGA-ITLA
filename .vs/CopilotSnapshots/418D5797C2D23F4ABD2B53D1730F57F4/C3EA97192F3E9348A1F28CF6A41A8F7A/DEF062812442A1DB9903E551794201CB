@@ -1,0 +1,18 @@
+﻿using SGA.Domain.Entidades.Operaciones;
+using SGA.Infrastructure.Contexts;
+using SGA.Infrastructure.Repositories.Base;
+
+namespace SGA.Infrastructure.Repositories.Operaciones
+{
+    /// <summary>
+    /// Repositorio para la entidad Incidencia.
+    /// </summary>
+    public class IncidenciaRepository : BaseRepository<Incidencia>
+    {
+        public IncidenciaRepository(ApplicationDbContext context) : base(context)
+        {
+        }
+
+        // Métodos específicos de Incidencia si es necesario
+    }
+}

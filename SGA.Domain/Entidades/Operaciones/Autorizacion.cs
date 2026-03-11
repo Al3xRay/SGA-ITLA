@@ -1,13 +1,7 @@
-﻿using SGAITLA.Domain.Base;
-using SGAITLA.Domain.Entidades.Configuracion;
-using SGAITLA.Domain.Entidades.Personas;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SGAITLA.Domain.Entidades.Operaciones;
+﻿using SGA.Domain.Base;
+using SGA.Domain.Entidades.Configuracion;
+using SGA.Domain.Entidades.Personas;
+namespace SGA.Domain.Entidades.Operaciones;
 
 public class Autorizacion : AuditEntity
 {

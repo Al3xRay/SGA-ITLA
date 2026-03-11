@@ -1,12 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SGA.Domain.Entidades.Personas;
 
 namespace SGA.Persistence.Configurations.Personas
 {
-    internal class EmpleadoConfiguration
+    public class EmpleadoConfiguration : BaseEntityConfiguration<Empleado>
     {
+        protected override void ConfigureEntity(EntityTypeBuilder<Empleado> builder)
+        {
+            builder.ToTable("Empleados");
+            builder.HasKey(e => e.Id);
+
+            builder.Property(e => e.CodigoEmpleado)
+                .IsRequired()
+                .HasMaxLength(20)
+                .IsUnicode(false);
+
+            builder.Property(e => e.Departamento)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Property(e => e.Cargo)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Property(e => e.FechaContratacion)
+                .HasColumnType("date")
+                .IsRequired();
+
+            builder.HasIndex(e => e.CodigoEmpleado)
+                .IsUnique();
+        }
     }
 }

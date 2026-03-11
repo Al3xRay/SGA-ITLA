@@ -1,0 +1,86 @@
+﻿using Microsoft.EntityFrameworkCore;
+using SGA.Domain.Base;
+using SGA.Domain.Repository;
+using SGA.Infrastructure.Contexts;
+
+namespace SGA.Infrastructure.Repositories.Base
+{
+    /// <summary>
+    /// Implementación genérica de repositorio base.
+    /// Encapsula toda la lógica de acceso a datos y garantiza consistencia.
+    /// Nunca expone IQueryable para mantener encapsulación.
+    /// </summary>
+    public abstract class BaseRepository<T> : IBaseRepository<T> where T : AuditEntity
+    {
+        protected readonly ApplicationDbContext _context;
+        protected readonly DbSet<T> _dbSet;
+
+        protected BaseRepository(ApplicationDbContext context)
+        {
+            _context = context;
+            _dbSet = context.Set<T>();
+        }
+
+        /// <summary>
+        /// Obtiene una entidad por su ID.
+        /// </summary>
+        public virtual async Task<T?> GetByIdAsync(int id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
+
+        /// <summary>
+        /// Obtiene todas las entidades (materializado, no lazy-loaded).
+        /// Los filtros globales (Activo == true) se aplican automáticamente.
+        /// </summary>
+        public virtual async Task<IReadOnlyList<T>> GetAllAsync()
+        {
+            return await _dbSet.ToListAsync();
+        }
+
+        /// <summary>
+        /// Agrega una nueva entidad al contexto.
+        /// FechaCreacion y Activo se establecerán automáticamente en SaveChangesAsync.
+        /// </summary>
+        public virtual async Task AddAsync(T entity)
+        {
+            await _dbSet.AddAsync(entity);
+        }
+
+        /// <summary>
+        /// Actualiza una entidad existente.
+        /// FechaModificacion se establecerá automáticamente en SaveChangesAsync.
+        /// </summary>
+        public virtual void Update(T entity)
+        {
+            _dbSet.Update(entity);
+        }
+
+        /// <summary>
+        /// Implementa borrado lógico (no físico).
+        /// La entidad se marca como Activo = false.
+        /// </summary>
+        public virtual void Delete(T entity)
+        {
+            entity.Activo = false;
+            _dbSet.Update(entity);
+        }
+
+        /// <summary>
+        /// Guarda todos los cambios en la base de datos.
+        /// Delega a ApplicationDbContext que gestiona auditoría.
+        /// </summary>
+        public virtual async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Verifica si una entidad existe en la base de datos.
+        /// </summary>
+        public virtual async Task<bool> ExistsAsync(int id)
+        {
+            return await _dbSet.AnyAsync(e => e.Id == id);
+        }
+    }
+}

@@ -1,11 +1,11 @@
-C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Domain\bin\Debug\net8.0\SGA.Domain.deps.json
-C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Domain\bin\Debug\net8.0\SGA.Domain.dll
-C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Domain\bin\Debug\net8.0\SGA.Domain.pdb
 C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Domain\obj\Debug\net8.0\SGA.Domain.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Domain\obj\Debug\net8.0\SGA.Domain.AssemblyInfoInputs.cache
 C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Domain\obj\Debug\net8.0\SGA.Domain.AssemblyInfo.cs
 C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Domain\obj\Debug\net8.0\SGA.Domain.csproj.CoreCompileInputs.cache
 C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Domain\obj\Debug\net8.0\SGA.Domain.sourcelink.json
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Domain\bin\Debug\net8.0\SGA.Domain.deps.json
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Domain\bin\Debug\net8.0\SGA.Domain.dll
+C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Domain\bin\Debug\net8.0\SGA.Domain.pdb
 C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Domain\obj\Debug\net8.0\SGA.Domain.dll
 C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Domain\obj\Debug\net8.0\refint\SGA.Domain.dll
 C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Domain\obj\Debug\net8.0\SGA.Domain.pdb

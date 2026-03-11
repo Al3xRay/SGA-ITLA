@@ -1,0 +1,32 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SGA.Domain.Entidades.Personas;
+
+namespace SGA.Infrastructure.Configurations.Personas
+{
+    /// <summary>
+    /// Configuración para la entidad Administrador (herencia TPT).
+    /// </summary>
+    public class AdministradorConfiguration : BaseEntityConfiguration<Administrador>
+    {
+        protected override void ConfigureEntity(EntityTypeBuilder<Administrador> builder)
+        {
+            builder.ToTable("Administradores");
+
+            builder.HasKey(e => e.Id);
+
+            builder.Property(e => e.NivelAcceso)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+
+            builder.Property(e => e.AreaResponsable)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Property(e => e.FechaAsignacion)
+                .HasColumnType("date")
+                .IsRequired();
+        }
+    }
+}

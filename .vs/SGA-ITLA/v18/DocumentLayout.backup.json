@@ -1,7 +1,140 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.infrastructure\\configurations\\configuracion\\tiporegistroconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|solutionrelative:sga.infrastructure\\configurations\\configuracion\\tiporegistroconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.infrastructure\\configurations\\configuracion\\tipopersonaconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|solutionrelative:sga.infrastructure\\configurations\\configuracion\\tipopersonaconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.infrastructure\\configurations\\configuracion\\tipoincidenciaconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|solutionrelative:sga.infrastructure\\configurations\\configuracion\\tipoincidenciaconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.infrastructure\\configurations\\configuracion\\tipoautorizacionconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|solutionrelative:sga.infrastructure\\configurations\\configuracion\\tipoautorizacionconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.infrastructure\\configurations\\configuracion\\estadoviajeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|solutionrelative:sga.infrastructure\\configurations\\configuracion\\estadoviajeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.infrastructure\\configurations\\configuracion\\estadoincidenciaconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|solutionrelative:sga.infrastructure\\configurations\\configuracion\\estadoincidenciaconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.infrastructure\\configurations\\configuracion\\estadoconductorconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|solutionrelative:sga.infrastructure\\configurations\\configuracion\\estadoconductorconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.infrastructure\\configurations\\configuracion\\estadoautobusconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|solutionrelative:sga.infrastructure\\configurations\\configuracion\\estadoautobusconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\repository\\ibaserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\repository\\ibaserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\transporte\\viaje.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\transporte\\viaje.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\transporte\\ruta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\transporte\\ruta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\transporte\\parada.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\transporte\\parada.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\transporte\\horario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\transporte\\horario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\transporte\\autobus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\transporte\\autobus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\personas\\persona.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\personas\\persona.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\personas\\estudiante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\personas\\estudiante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\personas\\empleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\personas\\empleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\personas\\conductor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\personas\\conductor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\personas\\administrador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\personas\\administrador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\operaciones\\registrouso.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\operaciones\\registrouso.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\operaciones\\incidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\operaciones\\incidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\operaciones\\autorizacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\operaciones\\autorizacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\configuracion\\tipopersona.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\configuracion\\tipopersona.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\configuracion\\tiporegistro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\configuracion\\tiporegistro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\configuracion\\tipoincidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\configuracion\\tipoincidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\configuracion\\tipoautorizacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\configuracion\\tipoautorizacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\configuracion\\estadoviaje.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\configuracion\\estadoviaje.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\configuracion\\estadoincidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\configuracion\\estadoincidencia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\configuracion\\estadoconductor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\configuracion\\estadoconductor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\entidades\\configuracion\\estadoautobus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\entidades\\configuracion\\estadoautobus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\base\\operationresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\base\\operationresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.domain\\base\\auditentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C8FA43E0-89CB-4865-AA50-41814ADEA538}|SGA.Domain\\SGA.Domain.csproj|solutionrelative:sga.domain\\base\\auditentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|c:\\users\\alexander\\desktop\\sga-itla\\sga.infrastructure\\repositories\\base\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9C476F2A-E5E8-4FF1-83BA-5DF1C65F3D59}|SGA.Infrastructure\\SGA.Persistence.csproj|solutionrelative:sga.infrastructure\\repositories\\base\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +142,440 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TipoRegistroConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Configurations\\Configuracion\\TipoRegistroConfiguration.cs",
+              "RelativeDocumentMoniker": "SGA.Infrastructure\\Configurations\\Configuracion\\TipoRegistroConfiguration.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Configurations\\Configuracion\\TipoRegistroConfiguration.cs",
+              "RelativeToolTip": "SGA.Infrastructure\\Configurations\\Configuracion\\TipoRegistroConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:51:28.678Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TipoPersonaConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Configurations\\Configuracion\\TipoPersonaConfiguration.cs",
+              "RelativeDocumentMoniker": "SGA.Infrastructure\\Configurations\\Configuracion\\TipoPersonaConfiguration.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Configurations\\Configuracion\\TipoPersonaConfiguration.cs",
+              "RelativeToolTip": "SGA.Infrastructure\\Configurations\\Configuracion\\TipoPersonaConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:51:21.579Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TipoIncidenciaConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Configurations\\Configuracion\\TipoIncidenciaConfiguration.cs",
+              "RelativeDocumentMoniker": "SGA.Infrastructure\\Configurations\\Configuracion\\TipoIncidenciaConfiguration.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Configurations\\Configuracion\\TipoIncidenciaConfiguration.cs",
+              "RelativeToolTip": "SGA.Infrastructure\\Configurations\\Configuracion\\TipoIncidenciaConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:51:13.734Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TipoAutorizacionConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Configurations\\Configuracion\\TipoAutorizacionConfiguration.cs",
+              "RelativeDocumentMoniker": "SGA.Infrastructure\\Configurations\\Configuracion\\TipoAutorizacionConfiguration.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Configurations\\Configuracion\\TipoAutorizacionConfiguration.cs",
+              "RelativeToolTip": "SGA.Infrastructure\\Configurations\\Configuracion\\TipoAutorizacionConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:51:07.354Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EstadoViajeConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Configurations\\Configuracion\\EstadoViajeConfiguration.cs",
+              "RelativeDocumentMoniker": "SGA.Infrastructure\\Configurations\\Configuracion\\EstadoViajeConfiguration.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Configurations\\Configuracion\\EstadoViajeConfiguration.cs",
+              "RelativeToolTip": "SGA.Infrastructure\\Configurations\\Configuracion\\EstadoViajeConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:50:58.427Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "EstadoIncidenciaConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Configurations\\Configuracion\\EstadoIncidenciaConfiguration.cs",
+              "RelativeDocumentMoniker": "SGA.Infrastructure\\Configurations\\Configuracion\\EstadoIncidenciaConfiguration.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Configurations\\Configuracion\\EstadoIncidenciaConfiguration.cs",
+              "RelativeToolTip": "SGA.Infrastructure\\Configurations\\Configuracion\\EstadoIncidenciaConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:50:44.919Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EstadoConductorConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Configurations\\Configuracion\\EstadoConductorConfiguration.cs",
+              "RelativeDocumentMoniker": "SGA.Infrastructure\\Configurations\\Configuracion\\EstadoConductorConfiguration.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Configurations\\Configuracion\\EstadoConductorConfiguration.cs",
+              "RelativeToolTip": "SGA.Infrastructure\\Configurations\\Configuracion\\EstadoConductorConfiguration.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:49:57.172Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "EstadoAutobusConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Configurations\\Configuracion\\EstadoAutobusConfiguration.cs",
+              "RelativeDocumentMoniker": "SGA.Infrastructure\\Configurations\\Configuracion\\EstadoAutobusConfiguration.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Configurations\\Configuracion\\EstadoAutobusConfiguration.cs",
+              "RelativeToolTip": "SGA.Infrastructure\\Configurations\\Configuracion\\EstadoAutobusConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:49:42.729Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IBaseRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Repository\\IBaseRepository.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Repository\\IBaseRepository.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Repository\\IBaseRepository.cs",
+              "RelativeToolTip": "SGA.Domain\\Repository\\IBaseRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:46:35.603Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Viaje.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Transporte\\Viaje.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Transporte\\Viaje.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Transporte\\Viaje.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Transporte\\Viaje.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:46:30.146Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Ruta.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Transporte\\Ruta.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Transporte\\Ruta.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Transporte\\Ruta.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Transporte\\Ruta.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:46:29.04Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Parada.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Transporte\\Parada.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Transporte\\Parada.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Transporte\\Parada.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Transporte\\Parada.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:46:27.754Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Horario.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Transporte\\Horario.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Transporte\\Horario.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Transporte\\Horario.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Transporte\\Horario.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:46:26.002Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Autobus.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Transporte\\Autobus.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Transporte\\Autobus.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Transporte\\Autobus.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Transporte\\Autobus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:46:24.528Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Persona.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Personas\\Persona.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Personas\\Persona.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Personas\\Persona.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Personas\\Persona.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:46:21.054Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Estudiante.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Personas\\Estudiante.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Personas\\Estudiante.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Personas\\Estudiante.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Personas\\Estudiante.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:46:19.701Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Empleado.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Personas\\Empleado.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Personas\\Empleado.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Personas\\Empleado.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Personas\\Empleado.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:46:18.663Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Conductor.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Personas\\Conductor.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Personas\\Conductor.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Personas\\Conductor.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Personas\\Conductor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:46:17.466Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Administrador.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Personas\\Administrador.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Personas\\Administrador.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Personas\\Administrador.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Personas\\Administrador.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:46:15.806Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "RegistroUso.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Operaciones\\RegistroUso.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Operaciones\\RegistroUso.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Operaciones\\RegistroUso.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Operaciones\\RegistroUso.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:46:12.013Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Incidencia.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Operaciones\\Incidencia.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Operaciones\\Incidencia.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Operaciones\\Incidencia.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Operaciones\\Incidencia.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:46:09.743Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Autorizacion.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Operaciones\\Autorizacion.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Operaciones\\Autorizacion.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Operaciones\\Autorizacion.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Operaciones\\Autorizacion.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:46:06.294Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "TipoRegistro.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Configuracion\\TipoRegistro.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Configuracion\\TipoRegistro.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Configuracion\\TipoRegistro.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Configuracion\\TipoRegistro.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:45:51.21Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "TipoPersona.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Configuracion\\TipoPersona.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Configuracion\\TipoPersona.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Configuracion\\TipoPersona.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Configuracion\\TipoPersona.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:45:49.841Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "TipoIncidencia.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Configuracion\\TipoIncidencia.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Configuracion\\TipoIncidencia.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Configuracion\\TipoIncidencia.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Configuracion\\TipoIncidencia.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:45:44.221Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "TipoAutorizacion.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Configuracion\\TipoAutorizacion.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Configuracion\\TipoAutorizacion.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Configuracion\\TipoAutorizacion.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Configuracion\\TipoAutorizacion.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:45:43.644Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "EstadoViaje.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Configuracion\\EstadoViaje.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Configuracion\\EstadoViaje.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Configuracion\\EstadoViaje.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Configuracion\\EstadoViaje.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:45:42.199Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "EstadoIncidencia.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Configuracion\\EstadoIncidencia.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Configuracion\\EstadoIncidencia.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Configuracion\\EstadoIncidencia.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Configuracion\\EstadoIncidencia.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:45:41.388Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "EstadoConductor.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Configuracion\\EstadoConductor.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Configuracion\\EstadoConductor.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Configuracion\\EstadoConductor.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Configuracion\\EstadoConductor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:45:40.647Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "EstadoAutobus.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Configuracion\\EstadoAutobus.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Entidades\\Configuracion\\EstadoAutobus.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Entidades\\Configuracion\\EstadoAutobus.cs",
+              "RelativeToolTip": "SGA.Domain\\Entidades\\Configuracion\\EstadoAutobus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:45:39.355Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "OperationResult.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Base\\OperationResult.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Base\\OperationResult.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Base\\OperationResult.cs",
+              "RelativeToolTip": "SGA.Domain\\Base\\OperationResult.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:45:32.667Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "AuditEntity.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Base\\AuditEntity.cs",
+              "RelativeDocumentMoniker": "SGA.Domain\\Base\\AuditEntity.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\Base\\AuditEntity.cs",
+              "RelativeToolTip": "SGA.Domain\\Base\\AuditEntity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-11T01:45:29.172Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "BaseRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Repositories\\Base\\BaseRepository.cs",
+              "RelativeDocumentMoniker": "SGA.Infrastructure\\Repositories\\Base\\BaseRepository.cs",
+              "ToolTip": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\Repositories\\Base\\BaseRepository.cs",
+              "RelativeToolTip": "SGA.Infrastructure\\Repositories\\Base\\BaseRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-10T23:15:33.793Z",
+              "EditorCaption": ""
             }
           ]
         }

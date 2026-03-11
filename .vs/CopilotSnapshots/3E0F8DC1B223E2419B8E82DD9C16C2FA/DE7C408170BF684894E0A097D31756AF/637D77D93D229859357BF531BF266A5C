@@ -1,0 +1,39 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SGA.Domain.Entidades.Personas;
+
+namespace SGA.Infrastructure.Configurations.Personas
+{
+    /// <summary>
+    /// Configuración para la entidad Estudiante (herencia TPT).
+    /// </summary>
+    public class EstudianteConfiguration : BaseEntityConfiguration<Estudiante>
+    {
+        protected override void ConfigureEntity(EntityTypeBuilder<Estudiante> builder)
+        {
+            // CRÍTICO: Especificar la tabla separada para esta entidad (TPT)
+            builder.ToTable("Estudiantes");
+
+            // Clave primaria (es también FK hacia Personas automáticamente por herencia)
+            builder.HasKey(e => e.Id);
+
+            // Propiedades específicas
+            builder.Property(e => e.Matricula)
+                .IsRequired()
+                .HasMaxLength(20)
+                .IsUnicode(false);
+
+            builder.Property(e => e.Carrera)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Property(e => e.FechaIngreso)
+                .HasColumnType("date")
+                .IsRequired();
+
+            // Índice en Matrícula
+            builder.HasIndex(e => e.Matricula)
+                .IsUnique();
+        }
+    }
+}

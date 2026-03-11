@@ -1,13 +1,8 @@
-﻿using SGAITLA.Domain.Entidades.Configuracion;
-using SGAITLA.Domain.Entidades.Operaciones;
-using SGAITLA.Domain.Entidades.Transporte;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SGA.Domain.Entidades.Configuracion;
+using SGA.Domain.Entidades.Operaciones;
+using SGA.Domain.Entidades.Transporte;
 
-namespace SGAITLA.Domain.Entidades.Personas;
+namespace SGA.Domain.Entidades.Personas;
 
 public class Conductor : Persona
 {

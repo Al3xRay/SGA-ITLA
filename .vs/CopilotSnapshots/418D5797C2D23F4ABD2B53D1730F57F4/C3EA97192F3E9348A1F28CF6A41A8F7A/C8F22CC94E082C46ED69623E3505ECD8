@@ -1,0 +1,18 @@
+﻿using SGA.Domain.Entidades.Transporte;
+using SGA.Infrastructure.Contexts;
+using SGA.Infrastructure.Repositories.Base;
+
+namespace SGA.Infrastructure.Repositories.Transporte
+{
+    /// <summary>
+    /// Repositorio para la entidad Parada.
+    /// </summary>
+    public class ParadaRepository : BaseRepository<Parada>
+    {
+        public ParadaRepository(ApplicationDbContext context) : base(context)
+        {
+        }
+
+        // Métodos específicos de Parada si es necesario
+    }
+}

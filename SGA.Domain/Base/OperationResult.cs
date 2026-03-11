@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SGAITLA.Domain.Base;
+﻿namespace SGA.Domain.Base;
 
 public class OperationResult
 {

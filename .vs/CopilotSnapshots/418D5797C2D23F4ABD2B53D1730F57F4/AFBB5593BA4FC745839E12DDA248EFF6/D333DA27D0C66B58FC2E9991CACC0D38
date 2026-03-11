@@ -1,0 +1,54 @@
+﻿using Microsoft.EntityFrameworkCore;
+using SGA.Domain.Entidades.Personas;
+using SGA.Domain.Entidades.Transporte;
+using SGA.Domain.Entidades.Operaciones;
+using SGA.Domain.Entidades.Configuracion;
+using System.Reflection;
+
+namespace SGA.Infrastructure.Contexts
+{
+    public class ApplicationDbContext : DbContext
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+        }
+
+        // --- Entidades de Personas ---
+        public DbSet<Persona> Personas { get; set; }
+        public DbSet<Estudiante> Estudiantes { get; set; }
+        public DbSet<Empleado> Empleados { get; set; }
+        public DbSet<Conductor> Conductores { get; set; }
+        public DbSet<Administrador> Administradores { get; set; }
+
+        // --- Entidades de Transporte ---
+        public DbSet<Autobus> Autobuses { get; set; }
+        public DbSet<Ruta> Rutas { get; set; }
+        public DbSet<Parada> Paradas { get; set; }
+        public DbSet<Horario> Horarios { get; set; }
+        public DbSet<Viaje> Viajes { get; set; }
+
+        // --- Entidades de Operaciones ---
+        public DbSet<Autorizacion> Autorizaciones { get; set; }
+        public DbSet<RegistroUso> RegistrosUso { get; set; }
+        public DbSet<Incidencia> Incidencias { get; set; }
+
+        // --- Tablas de Configuración y Catálogos ---
+        public DbSet<EstadoAutobus> EstadoAutobuses { get; set; }
+        public DbSet<EstadoConductor> EstadoConductores { get; set; }
+        public DbSet<EstadoIncidencia> EstadoIncidencias { get; set; }
+        public DbSet<EstadoViaje> EstadoViajes { get; set; }
+        public DbSet<TipoAutorizacion> TipoAutorizaciones { get; set; }
+        public DbSet<TipoIncidencia> TipoIncidencias { get; set; }
+        public DbSet<TipoPersona> TipoPersonas { get; set; }
+        public DbSet<TipoRegistro> TipoRegistros { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Escanea el ensamblado actual buscando todas las clases que implementen 
+            // IEntityTypeConfiguration<T> y aplica las configuraciones automáticamente.
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+    }
+}

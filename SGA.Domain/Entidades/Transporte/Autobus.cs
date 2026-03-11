@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using SGAITLA.Domain.Base;
-using SGAITLA.Domain.Entidades.Configuracion;
+﻿using SGA.Domain.Base;
+using SGA.Domain.Entidades.Configuracion;
 
 
-namespace SGAITLA.Domain.Entidades.Transporte;
+namespace SGA.Domain.Entidades.Transporte;
 
 public class Autobus : AuditEntity
 {

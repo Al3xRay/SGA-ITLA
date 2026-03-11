@@ -1,12 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SGA.Domain.Entidades.Personas;
 
 namespace SGA.Persistence.Configurations.Personas
 {
-    internal class EstudianteConfiguration
+    public class EstudianteConfiguration : BaseEntityConfiguration<Estudiante>
     {
+        protected override void ConfigureEntity(EntityTypeBuilder<Estudiante> builder)
+        {
+            builder.ToTable("Estudiantes");
+
+            builder.HasKey(e => e.Id);
+
+            // Propiedades
+            builder.Property(e => e.Matricula)
+                .IsRequired()
+                .HasMaxLength(20)
+                .IsUnicode(false);
+
+            builder.Property(e => e.Carrera)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Property(e => e.FechaIngreso)
+                .HasColumnType("date")
+                .IsRequired();
+
+            // Índice en Matrícula
+            builder.HasIndex(e => e.Matricula)
+                .IsUnique();
+        }
     }
 }

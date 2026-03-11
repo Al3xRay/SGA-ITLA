@@ -1,0 +1,44 @@
+﻿namespace SGA.Domain.Repository
+{
+    /// <summary>
+    /// Interface base para repositorios genéricos.
+    /// Nunca expone IQueryable para mantener encapsulación.
+    /// </summary>
+    public interface IBaseRepository<T> where T : class
+    {
+        /// <summary>
+        /// Obtiene una entidad por su ID de forma asíncrona.
+        /// </summary>
+        Task<T?> GetByIdAsync(int id);
+
+        /// <summary>
+        /// Obtiene todas las entidades de forma materializada (no IQueryable).
+        /// </summary>
+        Task<IReadOnlyList<T>> GetAllAsync();
+
+        /// <summary>
+        /// Agrega una entidad de forma asíncrona.
+        /// </summary>
+        Task AddAsync(T entity);
+
+        /// <summary>
+        /// Actualiza una entidad de forma síncrona (cambio en memoria).
+        /// </summary>
+        void Update(T entity);
+
+        /// <summary>
+        /// Elimina una entidad de forma lógica (marca Activo = false).
+        /// </summary>
+        void Delete(T entity);
+
+        /// <summary>
+        /// Guarda todos los cambios en la base de datos.
+        /// </summary>
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Verifica si una entidad existe con el ID especificado.
+        /// </summary>
+        Task<bool> ExistsAsync(int id);
+    }
+}

@@ -1,0 +1,36 @@
+﻿using Microsoft.EntityFrameworkCore;
+using SGA.Domain.Entidades.Transporte;
+using SGA.Infrastructure.Contexts;
+using SGA.Infrastructure.Repositories.Base;
+
+namespace SGA.Infrastructure.Repositories.Transporte
+{
+    /// <summary>
+    /// Repositorio para la entidad Autobus.
+    /// </summary>
+    public class AutobusRepository : BaseRepository<Autobus>
+    {
+        public AutobusRepository(ApplicationDbContext context) : base(context)
+        {
+        }
+
+        /// <summary>
+        /// Obtiene un autobús por placa.
+        /// </summary>
+        public async Task<Autobus?> GetByPlacaAsync(string placa)
+        {
+            return await _dbSet.FirstOrDefaultAsync(e => e.Placa == placa);
+        }
+
+        /// <summary>
+        /// Obtiene autobuses con capacidad mínima especificada.
+        /// </summary>
+        public async Task<IReadOnlyList<Autobus>> GetByCapacidadAsync(int capacidadMinima)
+        {
+            return await _dbSet
+                .Where(e => e.Capacidad >= capacidadMinima)
+                .ToListAsync();
+        }
+    }
+}
+

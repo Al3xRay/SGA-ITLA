@@ -1,12 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SGA.Domain.Entidades.Transporte;
 
 namespace SGA.Persistence.Configurations.Transporte
 {
-    internal class HorarioConfiguration
+    public class HorarioConfiguration : BaseEntityConfiguration<Horario>
     {
+        protected override void ConfigureEntity(EntityTypeBuilder<Horario> builder)
+        {
+            builder.ToTable("Horarios");
+
+            builder.HasKey(e => e.Id);
+
+            builder.Property(e => e.HoraSalida)
+                .HasColumnType("time");
+
+            builder.Property(e => e.HoraLlegadaEstimada)
+                .HasColumnType("time");
+
+            builder.Property(e => e.DiaSemana)
+                .IsRequired();
+
+            builder.Property(e => e.Activo)
+                .HasDefaultValue(true);
+        }
     }
 }

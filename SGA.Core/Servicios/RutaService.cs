@@ -1,181 +1,98 @@
-﻿using SGA.Application.Dtos.Transporte;
+using SGA.Application.Dtos.Transporte;
+using SGA.Application.Interfaces;
 using SGA.Domain.Base;
-using SGAITLA.Application.Dtos.Transporte;
-using SGAITLA.Application.Interfaces;
-using SGAITLA.Domain.Entidades.Transporte;
-using SGAITLA.Domain.Repositorios;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SGAITLA.Domain.Base;
+using SGA.Domain.Entidades.Transporte;
+using SGA.Domain.Repository;
 
-
-namespace SGAITLA.Application.Servicios;
+namespace SGA.Application.Servicios;
 
 public class RutaService : IRutaService
 {
-    private readonly IBaseRepository<Ruta> _rutaRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public RutaService(IBaseRepository<Ruta> rutaRepository)
+    public RutaService(IUnitOfWork unitOfWork)
     {
-        _rutaRepository = rutaRepository;
+        _unitOfWork = unitOfWork;
     }
 
-    public async Task<OperationResult<List<RutaDto>>> GetAll()
+    public async Task<OperationResult<IReadOnlyList<RutaDto>>> GetAllAsync()
     {
-        try
-        {
-            var rutas = await _rutaRepository.GetAllAsync();
-            var dtos = rutas.Select(r => new RutaDto
-            {
-                Id = r.Id,
-                Codigo = r.Codigo,
-                Nombre = r.Nombre,
-                Descripcion = r.Descripcion,
-                HoraInicio = r.HoraInicio,
-                HoraFin = r.HoraFin,
-                Activo = r.Activo
-            }).ToList();
-
-            return OperationResult<List<RutaDto>>.Ok(dtos, "Rutas obtenidas");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<List<RutaDto>>.Fail($"Error: {ex.Message}");
-        }
+        var rutas = await _unitOfWork.Rutas.GetAllAsync();
+        var dtos = rutas.Select(MapToDto).ToList().AsReadOnly();
+        return OperationResult<IReadOnlyList<RutaDto>>.Ok(dtos);
     }
 
-    public async Task<OperationResult<RutaDto>> GetById(int id)
+    public async Task<OperationResult<RutaDto>> GetByIdAsync(int id)
     {
-        try
-        {
-            var ruta = await _rutaRepository.GetByIdAsync(id);
-            if (ruta == null)
-                return OperationResult<RutaDto>.Fail("Ruta no encontrada");
+        var ruta = await _unitOfWork.Rutas.GetByIdAsync(id);
+        if (ruta == null)
+            return OperationResult<RutaDto>.Fail("Ruta no encontrada.");
 
-            var dto = new RutaDto
-            {
-                Id = ruta.Id,
-                Codigo = ruta.Codigo,
-                Nombre = ruta.Nombre,
-                Descripcion = ruta.Descripcion,
-                HoraInicio = ruta.HoraInicio,
-                HoraFin = ruta.HoraFin,
-                Activo = ruta.Activo
-            };
-
-            return OperationResult<RutaDto>.Ok(dto);
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<RutaDto>.Fail($"Error: {ex.Message}");
-        }
+        return OperationResult<RutaDto>.Ok(MapToDto(ruta));
     }
 
-    public async Task<OperationResult<int>> Save(SaveRutaDto dto)
+    public async Task<OperationResult> SaveAsync(SaveRutaDto dto)
     {
-        try
+        var ruta = new Ruta
         {
-            var existe = await _rutaRepository.FindAsync(r => r.Codigo == dto.Codigo);
-            if (existe.Any())
-                return OperationResult<int>.Fail("Ya existe una ruta con ese código");
+            Nombre = dto.Nombre,
+            Descripcion = dto.Descripcion,
+            Origen = dto.Origen,
+            Destino = dto.Destino,
+            DuracionEstimada = dto.DuracionEstimada
+        };
 
-            var ruta = new Ruta
-            {
-                Codigo = dto.Codigo,
-                Nombre = dto.Nombre,
-                Descripcion = dto.Descripcion,
-                HoraInicio = dto.HoraInicio,
-                HoraFin = dto.HoraFin,
-                FechaCreacion = DateTime.UtcNow,
-                Activo = true
-            };
-
-            await _rutaRepository.AddAsync(ruta);
-            return OperationResult<int>.Ok(ruta.Id, "Ruta guardada correctamente");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<int>.Fail($"Error al guardar: {ex.Message}");
-        }
+        await _unitOfWork.Rutas.AddAsync(ruta);
+        await _unitOfWork.SaveChangesAsync();
+        return OperationResult.Ok("Ruta creada exitosamente.");
     }
 
-    public async Task<OperationResult<int>> Update(UpdateRutaDto dto)
+    public async Task<OperationResult> UpdateAsync(int id, UpdateRutaDto dto)
     {
-        try
-        {
-            var ruta = await _rutaRepository.GetByIdAsync(dto.Id);
-            if (ruta == null)
-                return OperationResult<int>.Fail("Ruta no encontrada");
+        var ruta = await _unitOfWork.Rutas.GetByIdAsync(id);
+        if (ruta == null)
+            return OperationResult.Fail("Ruta no encontrada.");
 
-            if (ruta.Codigo != dto.Codigo)
-            {
-                var existe = await _rutaRepository.FindAsync(r => r.Codigo == dto.Codigo && r.Id != dto.Id);
-                if (existe.Any())
-                    return OperationResult<int>.Fail("Ya existe otra ruta con ese código");
-            }
+        ruta.Nombre = dto.Nombre;
+        ruta.Descripcion = dto.Descripcion;
+        ruta.Origen = dto.Origen;
+        ruta.Destino = dto.Destino;
+        ruta.DuracionEstimada = dto.DuracionEstimada;
 
-            ruta.Codigo = dto.Codigo;
-            ruta.Nombre = dto.Nombre;
-            ruta.Descripcion = dto.Descripcion;
-            ruta.HoraInicio = dto.HoraInicio;
-            ruta.HoraFin = dto.HoraFin;
-            ruta.Activo = dto.Activo;
-            ruta.FechaModificacion = DateTime.UtcNow;
-
-            await _rutaRepository.UpdateAsync(ruta);
-            return OperationResult<int>.Ok(ruta.Id, "Ruta actualizada correctamente");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<int>.Fail($"Error al actualizar: {ex.Message}");
-        }
+        _unitOfWork.Rutas.Update(ruta);
+        await _unitOfWork.SaveChangesAsync();
+        return OperationResult.Ok("Ruta actualizada exitosamente.");
     }
 
-    // ← ESTE MÉTODO FALTABA
-    public async Task<OperationResult<bool>> Remove(RemoveRutaDto dto)
+    public async Task<OperationResult> DeleteAsync(int id)
     {
-        try
-        {
-            var ruta = await _rutaRepository.GetByIdAsync(dto.Id);
-            if (ruta == null)
-                return OperationResult<bool>.Fail("Ruta no encontrada");
+        var ruta = await _unitOfWork.Rutas.GetByIdAsync(id);
+        if (ruta == null)
+            return OperationResult.Fail("Ruta no encontrada.");
 
-            ruta.Activo = false;
-            ruta.FechaModificacion = DateTime.UtcNow;
-            await _rutaRepository.UpdateAsync(ruta);
-
-            return OperationResult<bool>.Ok(true, "Ruta eliminada correctamente");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<bool>.Fail($"Error al eliminar: {ex.Message}");
-        }
+        _unitOfWork.Rutas.Delete(ruta);
+        await _unitOfWork.SaveChangesAsync();
+        return OperationResult.Ok("Ruta eliminada exitosamente.");
     }
 
-    public async Task<OperationResult<List<RutaDto>>> GetActivas()
+    private static RutaDto MapToDto(Ruta r) => new()
     {
-        try
+        Id = r.Id,
+        Nombre = r.Nombre,
+        Descripcion = r.Descripcion,
+        Origen = r.Origen,
+        Destino = r.Destino,
+        DuracionEstimada = r.DuracionEstimada,
+        Activo = r.Activo,
+        FechaCreacion = r.FechaCreacion,
+        Paradas = r.Paradas?.Select(p => new ParadaDto
         {
-            var rutas = await _rutaRepository.FindAsync(r => r.Activo);
-            var dtos = rutas.Select(r => new RutaDto
-            {
-                Id = r.Id,
-                Codigo = r.Codigo,
-                Nombre = r.Nombre,
-                Descripcion = r.Descripcion,
-                HoraInicio = r.HoraInicio,
-                HoraFin = r.HoraFin,
-                Activo = r.Activo
-            }).ToList();
-
-            return OperationResult<List<RutaDto>>.Ok(dtos, $"{dtos.Count} rutas activas");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<List<RutaDto>>.Fail($"Error: {ex.Message}");
-        }
-    }
+            Id = p.Id,
+            RutaId = p.RutaId,
+            Nombre = p.Nombre,
+            Ubicacion = p.Ubicacion,
+            Orden = p.Orden,
+            TiempoDesdeOrigen = p.TiempoDesdeOrigen
+        }).ToList() ?? new()
+    };
 }

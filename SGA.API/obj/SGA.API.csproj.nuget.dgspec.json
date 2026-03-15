@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.API\\SGA.API.csproj": {}
+    "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.API\\SGA.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.API\\SGA.API.csproj": {
+    "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.API\\SGA.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.API\\SGA.API.csproj",
+        "projectUniqueName": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.API\\SGA.API.csproj",
         "projectName": "SGA.API",
-        "projectPath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.API\\SGA.API.csproj",
+        "projectPath": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.API\\SGA.API.csproj",
         "packagesPath": "C:\\Users\\Alexander\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.API\\obj\\",
+        "outputPath": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,11 +33,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Core\\SGA.Application.csproj": {
-                "projectPath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Core\\SGA.Application.csproj"
+              "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Core\\SGA.Application.csproj": {
+                "projectPath": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Core\\SGA.Application.csproj"
               },
-              "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\SGA.Persistence.csproj": {
-                "projectPath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\SGA.Persistence.csproj"
+              "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Infrastructure\\SGA.Persistence.csproj": {
+                "projectPath": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Infrastructure\\SGA.Persistence.csproj"
               }
             }
           }
@@ -52,12 +52,20 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
@@ -82,18 +90,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Core\\SGA.Application.csproj": {
+    "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Core\\SGA.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Core\\SGA.Application.csproj",
+        "projectUniqueName": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Core\\SGA.Application.csproj",
         "projectName": "SGA.Application",
-        "projectPath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Core\\SGA.Application.csproj",
+        "projectPath": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Core\\SGA.Application.csproj",
         "packagesPath": "C:\\Users\\Alexander\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Core\\obj\\",
+        "outputPath": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -115,8 +123,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj": {
-                "projectPath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj"
+              "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj": {
+                "projectPath": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj"
               }
             }
           }
@@ -131,7 +139,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -152,18 +160,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj": {
+    "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj",
         "projectName": "SGA.Domain",
-        "projectPath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj",
+        "projectPath": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj",
         "packagesPath": "C:\\Users\\Alexander\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\obj\\",
+        "outputPath": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -197,7 +205,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -218,18 +226,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\SGA.Persistence.csproj": {
+    "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Infrastructure\\SGA.Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\SGA.Persistence.csproj",
+        "projectUniqueName": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Infrastructure\\SGA.Persistence.csproj",
         "projectName": "SGA.Persistence",
-        "projectPath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\SGA.Persistence.csproj",
+        "projectPath": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Infrastructure\\SGA.Persistence.csproj",
         "packagesPath": "C:\\Users\\Alexander\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -251,8 +259,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj": {
-                "projectPath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj"
+              "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj": {
+                "projectPath": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj"
               }
             }
           }
@@ -267,7 +275,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -298,7 +306,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

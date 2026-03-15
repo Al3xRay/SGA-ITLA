@@ -1,184 +1,106 @@
-﻿using SGA.Application.Dtos.Transporte;
+using SGA.Application.Dtos.Transporte;
 using SGA.Application.Interfaces;
 using SGA.Domain.Base;
-using SGA.Domain.Entidades.Configuracion;
 using SGA.Domain.Entidades.Transporte;
 using SGA.Domain.Repository;
-using SGA.Application.Dtos.Operaciones;
-using SGA.Domain.Entidades.Operaciones;
-using SGA.Domain.Entidades.Personas;
-
-
 
 namespace SGA.Application.Servicios;
 
 public class AutobusService : IAutobusService
 {
-    private readonly IBaseRepository<Autobus> _repository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public AutobusService(IBaseRepository<Autobus> repository)
+    public AutobusService(IUnitOfWork unitOfWork)
     {
-        _repository = repository;
+        _unitOfWork = unitOfWork;
     }
 
-    public async Task<OperationResult<List<AutobusDto>>> GetAll()
+    public async Task<OperationResult<IReadOnlyList<AutobusDto>>> GetAllAsync()
     {
-        try
-        {
-            var autobuses = await _repository.GetAllAsync();
-            var dtos = autobuses.Select(a => new AutobusDto
-            {
-                Id = a.Id,
-                Placa = a.Placa,
-                Marca = a.Marca,
-                Modelo = a.Modelo,
-                Capacidad = a.Capacidad,
-                Estado = a.EstadoAutobus,  
-                Activo = a.Activo
-            }).ToList();
-
-            return OperationResult<List<AutobusDto>>.Ok(dtos);
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<List<AutobusDto>>.Fail($"Error al obtener autobuses: {ex.Message}");
-        }
+        var autobuses = await _unitOfWork.Autobuses.GetAllAsync();
+        var dtos = autobuses.Select(MapToDto).ToList().AsReadOnly();
+        return OperationResult<IReadOnlyList<AutobusDto>>.Ok(dtos);
     }
 
-    public async Task<OperationResult<AutobusDto>> GetById(int id)
+    public async Task<OperationResult<AutobusDto>> GetByIdAsync(int id)
     {
-        try
-        {
-            var autobus = await _repository.GetByIdAsync(id);
-            if (autobus == null)
-                return OperationResult<AutobusDto>.Fail("Autobús no encontrado");
+        var autobus = await _unitOfWork.Autobuses.GetByIdAsync(id);
+        if (autobus == null)
+            return OperationResult<AutobusDto>.Fail("Autobús no encontrado.");
 
-            var dto = new AutobusDto
-            {
-                Id = autobus.Id,
-                Placa = autobus.Placa,
-                Marca = autobus.Marca,
-                Modelo = autobus.Modelo,
-                Capacidad = autobus.Capacidad,
-                Estado = autobus.EstadoAutobus,  
-                Activo = autobus.Activo
-            };
-
-            return OperationResult<AutobusDto>.Ok(dto);
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<AutobusDto>.Fail($"Error: {ex.Message}");
-        }
+        return OperationResult<AutobusDto>.Ok(MapToDto(autobus));
     }
 
-    public async Task<OperationResult<int>> Save(SaveAutobusDto dto)
+    public async Task<OperationResult> SaveAsync(SaveAutobusDto dto)
     {
-        try
-        {
-            // Validar placa única
-            var existe = await _repository.FindAsync(a => a.Placa == dto.Placa);
-            if (existe.Any())
-                return OperationResult<int>.Fail("Ya existe un autobús con esa placa");
+        var existente = await _unitOfWork.Autobuses.GetByPlacaAsync(dto.Placa);
+        if (existente != null)
+            return OperationResult.Fail("Ya existe un autobús con esa placa.");
 
-            var autobus = new Autobus
-            {
-                Placa = dto.Placa,
-                Marca = dto.Marca,
-                Modelo = dto.Modelo,
-                Capacidad = dto.Capacidad,
-                EstadoAutobus = dto.Estado,  
-                FechaCreacion = DateTime.Now,
-                Activo = true
-            };
+        if (dto.Capacidad <= 0)
+            return OperationResult.Fail("La capacidad debe ser mayor a 0.");
 
-            await _repository.AddAsync(autobus);
-            return OperationResult<int>.Ok(autobus.Id, "Autobús guardado correctamente");
-        }
-        catch (Exception ex)
+        var autobus = new Autobus
         {
-            return OperationResult<int>.Fail($"Error al guardar: {ex.Message}");
-        }
+            Placa = dto.Placa,
+            Marca = dto.Marca,
+            Modelo = dto.Modelo,
+            Capacidad = dto.Capacidad,
+            EstadoAutobusId = dto.EstadoAutobusId
+        };
+
+        await _unitOfWork.Autobuses.AddAsync(autobus);
+        await _unitOfWork.SaveChangesAsync();
+        return OperationResult.Ok("Autobús creado exitosamente.");
     }
 
-    public async Task<OperationResult<int>> Update(UpdateAutobusDto dto)
+    public async Task<OperationResult> UpdateAsync(int id, UpdateAutobusDto dto)
     {
-        try
-        {
-            var autobus = await _repository.GetByIdAsync(dto.Id);
-            if (autobus == null)
-                return OperationResult<int>.Fail("Autobús no encontrado");
+        var autobus = await _unitOfWork.Autobuses.GetByIdAsync(id);
+        if (autobus == null)
+            return OperationResult.Fail("Autobús no encontrado.");
 
-            // Validar placa única 
-            if (autobus.Placa != dto.Placa)
-            {
-                var existe = await _repository.FindAsync(a => a.Placa == dto.Placa && a.Id != dto.Id);
-                if (existe.Any())
-                    return OperationResult<int>.Fail("Ya existe otro autobús con esa placa");
-            }
+        if (dto.Capacidad <= 0)
+            return OperationResult.Fail("La capacidad debe ser mayor a 0.");
 
-            autobus.Placa = dto.Placa;
-            autobus.Marca = dto.Marca;
-            autobus.Modelo = dto.Modelo;
-            autobus.Capacidad = dto.Capacidad;
-            autobus.EstadoAutobus = dto.Estado;  
-            autobus.Activo = dto.Activo;
-            autobus.FechaModificacion = DateTime.Now;
+        autobus.Marca = dto.Marca;
+        autobus.Modelo = dto.Modelo;
+        autobus.Capacidad = dto.Capacidad;
+        autobus.EstadoAutobusId = dto.EstadoAutobusId;
 
-            await _repository.UpdateAsync(autobus);
-            return OperationResult<int>.Ok(autobus.Id, "Autobús actualizado correctamente");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<int>.Fail($"Error al actualizar: {ex.Message}");
-        }
+        _unitOfWork.Autobuses.Update(autobus);
+        await _unitOfWork.SaveChangesAsync();
+        return OperationResult.Ok("Autobús actualizado exitosamente.");
     }
 
-    public async Task<OperationResult<bool>> Remove(RemoveAutobusDto dto)
+    public async Task<OperationResult> DeleteAsync(int id)
     {
-        try
-        {
-            var autobus = await _repository.GetByIdAsync(dto.Id);
-            if (autobus == null)
-                return OperationResult<bool>.Fail("Autobús no encontrado");
+        var autobus = await _unitOfWork.Autobuses.GetByIdAsync(id);
+        if (autobus == null)
+            return OperationResult.Fail("Autobús no encontrado.");
 
-            // Borrado 
-            autobus.Activo = false;
-            autobus.FechaModificacion = DateTime.Now;  
-            await _repository.UpdateAsync(autobus);
-
-            return OperationResult<bool>.Ok(true, "Autobús eliminado correctamente");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<bool>.Fail($"Error al eliminar: {ex.Message}");
-        }
+        _unitOfWork.Autobuses.Delete(autobus);
+        await _unitOfWork.SaveChangesAsync();
+        return OperationResult.Ok("Autobús eliminado exitosamente.");
     }
 
-    public async Task<OperationResult<List<AutobusDto>>> GetDisponibles()
+    public async Task<OperationResult<IReadOnlyList<AutobusDto>>> GetDisponiblesAsync()
     {
-        try
-        {
-            var autobuses = await _repository.FindAsync(a =>
-                a.EstadoAutobus == EstadoAutobus.Disponible && a.Activo);  
-            //  Comparación con enum
-
-            var dtos = autobuses.Select(a => new AutobusDto
-            {
-                Id = a.Id,
-                Placa = a.Placa,
-                Marca = a.Marca,
-                Modelo = a.Modelo,
-                Capacidad = a.Capacidad,
-                Estado = a.EstadoAutobus,  
-                Activo = a.Activo
-            }).ToList();
-
-            return OperationResult<List<AutobusDto>>.Ok(dtos, $"{dtos.Count} autobuses disponibles");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<List<AutobusDto>>.Fail($"Error: {ex.Message}");
-        }
+        // EstadoAutobusId = 1 assumed as "Disponible"
+        var autobuses = await _unitOfWork.Autobuses.GetDisponiblesAsync(1);
+        var dtos = autobuses.Select(MapToDto).ToList().AsReadOnly();
+        return OperationResult<IReadOnlyList<AutobusDto>>.Ok(dtos);
     }
+
+    private static AutobusDto MapToDto(Autobus a) => new()
+    {
+        Id = a.Id,
+        Placa = a.Placa,
+        Marca = a.Marca,
+        Modelo = a.Modelo,
+        Capacidad = a.Capacidad,
+        EstadoAutobusNombre = a.Estado?.Nombre ?? string.Empty,
+        Activo = a.Activo,
+        FechaCreacion = a.FechaCreacion
+    };
 }

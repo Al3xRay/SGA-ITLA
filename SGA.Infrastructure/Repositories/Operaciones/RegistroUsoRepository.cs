@@ -1,10 +1,11 @@
-using SGA.Domain.Entidades.Operaciones;
-using SGA.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
+using SGA.Domain.Entidades.Operaciones;
+using SGA.Domain.Repository;
+using SGA.Persistence.Contexts;
 
 namespace SGA.Persistence.Repositories.Operaciones
 {
-    public class RegistroUsoRepository
+    public class RegistroUsoRepository : IRegistroUsoRepository
     {
         protected readonly ApplicationDbContext _context;
         protected readonly DbSet<RegistroUso> _dbSet;
@@ -49,10 +50,18 @@ namespace SGA.Persistence.Repositories.Operaciones
         {
             return await _dbSet.AnyAsync(e => e.Id == id);
         }
+
         public async Task<IReadOnlyList<RegistroUso>> GetByViajeAsync(int viajeId)
         {
             return await _dbSet
                 .Where(r => r.ViajeId == viajeId)
+                .ToListAsync();
+        }
+
+        public async Task<IReadOnlyList<RegistroUso>> GetByPersonaAsync(int personaId)
+        {
+            return await _dbSet
+                .Where(r => r.PersonaId == personaId)
                 .ToListAsync();
         }
     }

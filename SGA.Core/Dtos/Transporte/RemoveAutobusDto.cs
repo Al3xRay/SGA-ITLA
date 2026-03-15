@@ -1,10 +1,6 @@
-﻿using SGA.Application.Dtos;
-
 namespace SGA.Application.Dtos.Transporte;
 
-public class RemoveAutobusDto : DtoBase
+public class RemoveAutobusDto
 {
-
     public int Id { get; set; }
-
 }

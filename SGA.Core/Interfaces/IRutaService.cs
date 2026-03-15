@@ -1,14 +1,8 @@
-﻿using SGA.Domain.Base;
+using SGA.Application.Base;
 using SGA.Application.Dtos.Transporte;
 
 namespace SGA.Application.Interfaces;
 
-public interface IRutaService
+public interface IRutaService : IBaseService<RutaDto, SaveRutaDto, UpdateRutaDto>
 {
-    Task<OperationResult<List<RutaDto>>> GetAll();
-    Task<OperationResult<RutaDto>> GetById(int id);
-    Task<OperationResult<int>> Save(SaveRutaDto dto);
-    Task<OperationResult<int>> Update(UpdateRutaDto dto);
-    Task<OperationResult<bool>> Remove(RemoveRutaDto dto);
-    Task<OperationResult<List<RutaDto>>> GetActivas();
 }

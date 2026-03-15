@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using SGA.Domain.Entidades.Transporte;
+using SGA.Domain.Repository;
 using SGA.Persistence.Contexts;
 
 namespace SGA.Persistence.Repositories.Transporte
 {
-    public class ParadaRepository
+    public class ParadaRepository : IParadaRepository
     {
         protected readonly ApplicationDbContext _context;
         protected readonly DbSet<Parada> _dbSet;
@@ -22,6 +23,10 @@ namespace SGA.Persistence.Repositories.Transporte
         public virtual void Delete(Parada entity) => _dbSet.Remove(entity);
         public virtual async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) => await _context.SaveChangesAsync(cancellationToken);
         public virtual async Task<bool> ExistsAsync(int id) => await _dbSet.AnyAsync(e => e.Id == id);
+
+        public async Task<IReadOnlyList<Parada>> GetByRutaAsync(int rutaId)
+        {
+            return await _dbSet.Where(p => p.RutaId == rutaId).OrderBy(p => p.Orden).ToListAsync();
+        }
     }
 }
-

@@ -382,6 +382,9 @@
         }
       },
       "SGA.Application/1.0.0": {
+        "dependencies": {
+          "SGA.Domain": "1.0.0"
+        },
         "runtime": {
           "SGA.Application.dll": {
             "assemblyVersion": "1.0.0.0",

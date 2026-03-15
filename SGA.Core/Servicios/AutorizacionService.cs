@@ -1,296 +1,103 @@
-﻿using SGA.Application.Dtos.Operaciones;
+using SGA.Application.Dtos.Operaciones;
+using SGA.Application.Interfaces;
 using SGA.Domain.Base;
-using SGA.Domain.Entidades.Transporte;
 using SGA.Domain.Entidades.Operaciones;
-using SGA.Domain.Entidades.Configuracion;
-using SGAITLA.Application.Dtos.Operaciones;
-using SGAITLA.Domain.Entidades.Operaciones;
-using SGAITLA.Domain.Entidades.Personas;
-using SGAITLA.Domain.Entidades.Transporte;
-using SGAITLA.Domain.Repositorios;
-using SGAITLA.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SGAITLA.Domain.Base;
-using SGAITLA.Domain.Entidades.Configuracion;
+using SGA.Domain.Repository;
 
-
-namespace SGAITLA.Application.Servicios;
+namespace SGA.Application.Servicios;
 
 public class AutorizacionService : IAutorizacionService
 {
-    private readonly IBaseRepository<Autorizacion> _autorizacionRepository;
-    private readonly IBaseRepository<Persona> _personaRepository;
-    private readonly IBaseRepository<Viaje> _viajeRepository;
-    private readonly IBaseRepository<RegistroUso> _registroRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public AutorizacionService(
-        IBaseRepository<Autorizacion> autorizacionRepository,
-        IBaseRepository<Persona> personaRepository,
-        IBaseRepository<Viaje> viajeRepository,
-        IBaseRepository<RegistroUso> registroRepository)
+    public AutorizacionService(IUnitOfWork unitOfWork)
     {
-        _autorizacionRepository = autorizacionRepository;
-        _personaRepository = personaRepository;
-        _viajeRepository = viajeRepository;
-        _registroRepository = registroRepository;
+        _unitOfWork = unitOfWork;
     }
 
-    public async Task<OperationResult<List<AutorizacionDto>>> GetAll()
+    public async Task<OperationResult<IReadOnlyList<AutorizacionDto>>> GetAllAsync()
     {
-        try
-        {
-            var autorizaciones = await _autorizacionRepository.GetAllAsync();
-            var dtos = autorizaciones.Select(a => new AutorizacionDto
-            {
-                Id = a.Id,
-                PersonaId = a.PersonaId,
-                PersonaNombre = $"{a.Persona?.Nombre} {a.Persona?.Apellido}",
-                TipoAutorizacion = a.Tipo?.Nombre ?? "Desconocido",
-                Saldo = a.Saldo,
-                ViajesRestantes = a.ViajesRestantes,
-                FechaVencimiento = a.FechaVencimiento,
-                Activo = a.Activo
-            }).ToList();
-
-            return OperationResult<List<AutorizacionDto>>.Ok(dtos, "Autorizaciones obtenidas");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<List<AutorizacionDto>>.Fail($"Error: {ex.Message}");
-        }
+        var autorizaciones = await _unitOfWork.Autorizaciones.GetAllAsync();
+        var dtos = autorizaciones.Select(MapToDto).ToList().AsReadOnly();
+        return OperationResult<IReadOnlyList<AutorizacionDto>>.Ok(dtos);
     }
 
-    public async Task<OperationResult<AutorizacionDto>> GetById(int id)
+    public async Task<OperationResult<AutorizacionDto>> GetByIdAsync(int id)
     {
-        try
-        {
-            var autorizacion = await _autorizacionRepository.GetByIdAsync(id);
-            if (autorizacion == null)
-                return OperationResult<AutorizacionDto>.Fail("Autorización no encontrada");
+        var autorizacion = await _unitOfWork.Autorizaciones.GetByIdAsync(id);
+        if (autorizacion == null)
+            return OperationResult<AutorizacionDto>.Fail("Autorización no encontrada.");
 
-            var dto = new AutorizacionDto
-            {
-                Id = autorizacion.Id,
-                PersonaId = autorizacion.PersonaId,
-                PersonaNombre = $"{autorizacion.Persona?.Nombre} {autorizacion.Persona?.Apellido}",
-                TipoAutorizacion = autorizacion.Tipo?.Nombre ?? "Desconocido",
-                Saldo = autorizacion.Saldo,
-                ViajesRestantes = autorizacion.ViajesRestantes,
-                FechaVencimiento = autorizacion.FechaVencimiento,
-                Activo = autorizacion.Activo
-            };
-
-            return OperationResult<AutorizacionDto>.Ok(dto);
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<AutorizacionDto>.Fail($"Error: {ex.Message}");
-        }
+        return OperationResult<AutorizacionDto>.Ok(MapToDto(autorizacion));
     }
 
-    public async Task<OperationResult<int>> Save(SaveAutorizacionDto dto)
+    public async Task<OperationResult> SaveAsync(SaveAutorizacionDto dto)
     {
-        try
-        {
-            var persona = await _personaRepository.GetByIdAsync(dto.PersonaId);
-            if (persona == null)
-                return OperationResult<int>.Fail("Persona no encontrada");
+        if (!await _unitOfWork.Personas.ExistsAsync(dto.PersonaId))
+            return OperationResult.Fail("La persona especificada no existe.");
 
-            var autorizacion = new Autorizacion
-            {
-                PersonaId = dto.PersonaId,
-                TipoAutorizacionId = dto.TipoAutorizacionId,
-                Saldo = dto.TipoAutorizacionId == TipoAutorizacion.TarjetaRecargable ? dto.SaldoInicial : 0,
-                ViajesRestantes = dto.TipoAutorizacionId == TipoAutorizacion.TicketMensual ? dto.ViajesIniciales : null,
-                FechaEmision = DateTime.Now,
-                FechaVencimiento = dto.FechaVencimiento,
-                Activo = true,
-                FechaCreacion = DateTime.Now
-            };
+        if (dto.FechaVencimiento <= DateTime.UtcNow)
+            return OperationResult.Fail("La fecha de vencimiento debe ser futura.");
 
-            await _autorizacionRepository.AddAsync(autorizacion);
-            return OperationResult<int>.Ok(autorizacion.Id, "Autorización creada correctamente");
-        }
-        catch (Exception ex)
+        var autorizacion = new Autorizacion
         {
-            return OperationResult<int>.Fail($"Error: {ex.Message}");
-        }
+            PersonaId = dto.PersonaId,
+            TipoAutorizacionId = dto.TipoAutorizacionId,
+            Saldo = dto.Saldo,
+            ViajesRestantes = dto.ViajesRestantes,
+            FechaEmision = DateTime.UtcNow,
+            FechaVencimiento = dto.FechaVencimiento
+        };
+
+        await _unitOfWork.Autorizaciones.AddAsync(autorizacion);
+        await _unitOfWork.SaveChangesAsync();
+        return OperationResult.Ok("Autorización emitida exitosamente.");
     }
 
-    public async Task<OperationResult<int>> Update(UpdateAutorizacionDto dto)
+    public async Task<OperationResult> UpdateAsync(int id, UpdateAutorizacionDto dto)
     {
-        try
-        {
-            var autorizacion = await _autorizacionRepository.GetByIdAsync(dto.Id);
-            if (autorizacion == null)
-                return OperationResult<int>.Fail("Autorización no encontrada");
+        var autorizacion = await _unitOfWork.Autorizaciones.GetByIdAsync(id);
+        if (autorizacion == null)
+            return OperationResult.Fail("Autorización no encontrada.");
 
-            autorizacion.FechaVencimiento = dto.FechaVencimiento;
-            autorizacion.Activo = dto.Activo;
-            autorizacion.FechaModificacion = DateTime.Now;
+        if (dto.Saldo.HasValue) autorizacion.Saldo = dto.Saldo.Value;
+        if (dto.ViajesRestantes.HasValue) autorizacion.ViajesRestantes = dto.ViajesRestantes.Value;
+        if (dto.FechaVencimiento.HasValue) autorizacion.FechaVencimiento = dto.FechaVencimiento.Value;
 
-            await _autorizacionRepository.UpdateAsync(autorizacion);
-            return OperationResult<int>.Ok(autorizacion.Id, "Autorización actualizada");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<int>.Fail($"Error: {ex.Message}");
-        }
+        _unitOfWork.Autorizaciones.Update(autorizacion);
+        await _unitOfWork.SaveChangesAsync();
+        return OperationResult.Ok("Autorización actualizada exitosamente.");
     }
 
-    public async Task<OperationResult<bool>> Remove(RemoveAutorizacionDto dto)
+    public async Task<OperationResult> DeleteAsync(int id)
     {
-        try
-        {
-            var autorizacion = await _autorizacionRepository.GetByIdAsync(dto.Id);
-            if (autorizacion == null)
-                return OperationResult<bool>.Fail("Autorización no encontrada");
+        var autorizacion = await _unitOfWork.Autorizaciones.GetByIdAsync(id);
+        if (autorizacion == null)
+            return OperationResult.Fail("Autorización no encontrada.");
 
-            autorizacion.Activo = false;
-            autorizacion.FechaModificacion = DateTime.Now;
-            await _autorizacionRepository.UpdateAsync(autorizacion);
-
-            return OperationResult<bool>.Ok(true, "Autorización eliminada");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<bool>.Fail($"Error: {ex.Message}");
-        }
+        _unitOfWork.Autorizaciones.Delete(autorizacion);
+        await _unitOfWork.SaveChangesAsync();
+        return OperationResult.Ok("Autorización eliminada exitosamente.");
     }
 
-    public async Task<OperationResult<List<AutorizacionDto>>> GetByPersonaId(int personaId)
+    public async Task<OperationResult<IReadOnlyList<AutorizacionDto>>> GetByPersonaAsync(int personaId)
     {
-        try
-        {
-            var autorizaciones = await _autorizacionRepository.FindAsync(a =>
-                a.PersonaId == personaId && a.Activo);
-
-            var dtos = autorizaciones.Select(a => new AutorizacionDto
-            {
-                Id = a.Id,
-                PersonaId = a.PersonaId,
-                PersonaNombre = $"{a.Persona?.Nombre} {a.Persona?.Apellido}",
-                TipoAutorizacion = a.Tipo?.Nombre ?? "Desconocido",
-                Saldo = a.Saldo,
-                ViajesRestantes = a.ViajesRestantes,
-                FechaVencimiento = a.FechaVencimiento,
-                Activo = a.Activo
-            }).ToList();
-
-            return OperationResult<List<AutorizacionDto>>.Ok(dtos, $"{dtos.Count} autorizaciones encontradas");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<List<AutorizacionDto>>.Fail($"Error: {ex.Message}");
-        }
+        var autorizaciones = await _unitOfWork.Autorizaciones.GetVigentesAsync(personaId);
+        var dtos = autorizaciones.Select(MapToDto).ToList().AsReadOnly();
+        return OperationResult<IReadOnlyList<AutorizacionDto>>.Ok(dtos);
     }
 
-    public async Task<OperationResult<decimal>> Recargar(int autorizacionId, decimal monto, int changeUser)
+    private static AutorizacionDto MapToDto(Autorizacion a) => new()
     {
-        try
-        {
-            var autorizacion = await _autorizacionRepository.GetByIdAsync(autorizacionId);
-            if (autorizacion == null)
-                return OperationResult<decimal>.Fail("Autorización no encontrada");
-
-            if (autorizacion.TipoAutorizacionId != TipoAutorizacion.TarjetaRecargable)
-                return OperationResult<decimal>.Fail("Solo tarjetas recargables pueden recargarse");
-
-            if (monto <= 0)
-                return OperationResult<decimal>.Fail("El monto debe ser mayor a cero");
-
-            autorizacion.Saldo += monto;
-            autorizacion.FechaModificacion = DateTime.Now;
-
-            await _autorizacionRepository.UpdateAsync(autorizacion);
-            return OperationResult<decimal>.Ok(autorizacion.Saldo, $"Recarga exitosa. Nuevo saldo: {autorizacion.Saldo}");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<decimal>.Fail($"Error: {ex.Message}");
-        }
-    }
-
-    public async Task<OperationResult<bool>> ValidarAcceso(int personaId, int viajeId)
-    {
-        try
-        {
-            // Validar viaje
-            var viaje = await _viajeRepository.GetByIdAsync(viajeId);
-            if (viaje == null)
-                return OperationResult<bool>.Fail("Viaje no encontrado");
-
-            if (viaje.EstadoViajeId != EstadoViaje.EnCurso)
-                return OperationResult<bool>.Fail("El viaje no está en curso");
-
-            // Validar capacidad
-            if (viaje.OcupacionActual >= viaje.Autobus?.Capacidad)
-                return OperationResult<bool>.Fail("Autobús lleno");
-
-            // Buscar autorización válida
-            var autorizaciones = await _autorizacionRepository.FindAsync(a =>
-                a.PersonaId == personaId && a.Activo && a.FechaVencimiento > DateTime.Now);
-
-            var autorizacionValida = autorizaciones.FirstOrDefault(a => EsValida(a));
-
-            if (autorizacionValida == null)
-                return OperationResult<bool>.Fail("Sin autorización válida");
-
-            // Verificar duplicado
-            var abordajes = await _registroRepository.FindAsync(r =>
-                r.PersonaId == personaId && r.ViajeId == viajeId && r.AccesoPermitido);
-
-            if (abordajes.Any())
-                return OperationResult<bool>.Fail("Ya abordó este viaje");
-
-            // Consumir y registrar
-            await ConsumirAutorizacion(autorizacionValida);
-
-            viaje.OcupacionActual++;
-            viaje.FechaModificacion = DateTime.Now;
-            await _viajeRepository.UpdateAsync(viaje);
-
-            // Registrar uso
-            var registro = new RegistroUso
-            {
-                PersonaId = personaId,
-                ViajeId = viajeId,
-                AutorizacionId = autorizacionValida.Id,
-                FechaHora = DateTime.Now,
-                AccesoPermitido = true,
-                TipoRegistroId = TipoRegistro.Abordaje
-            };
-            await _registroRepository.AddAsync(registro);
-
-            return OperationResult<bool>.Ok(true, "Acceso permitido");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<bool>.Fail($"Error: {ex.Message}");
-        }
-    }
-
-    private bool EsValida(Autorizacion a)
-    {
-        if (!a.Activo) return false;
-        if (a.FechaVencimiento <= DateTime.Now) return false;
-        if (a.TipoAutorizacionId == TipoAutorizacion.TarjetaRecargable && a.Saldo <= 0) return false;
-        if (a.TipoAutorizacionId == TipoAutorizacion.TicketMensual && a.ViajesRestantes.HasValue && a.ViajesRestantes <= 0) return false;
-        return true;
-    }
-
-    private async Task ConsumirAutorizacion(Autorizacion a)
-    {
-        if (a.TipoAutorizacionId == TipoAutorizacion.TarjetaRecargable)
-            a.Saldo -= 1;
-        else if (a.TipoAutorizacionId == TipoAutorizacion.TicketMensual && a.ViajesRestantes.HasValue)
-            a.ViajesRestantes--;
-
-        a.FechaModificacion = DateTime.Now;
-        await _autorizacionRepository.UpdateAsync(a);
-    }
+        Id = a.Id,
+        PersonaId = a.PersonaId,
+        PersonaNombre = a.Persona != null ? $"{a.Persona.Nombre} {a.Persona.Apellido}" : string.Empty,
+        TipoAutorizacionNombre = a.Tipo?.Nombre ?? string.Empty,
+        Saldo = a.Saldo,
+        ViajesRestantes = a.ViajesRestantes,
+        FechaEmision = a.FechaEmision,
+        FechaVencimiento = a.FechaVencimiento,
+        Activo = a.Activo,
+        FechaCreacion = a.FechaCreacion
+    };
 }

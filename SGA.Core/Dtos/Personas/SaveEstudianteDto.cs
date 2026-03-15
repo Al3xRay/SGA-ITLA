@@ -1,11 +1,8 @@
-﻿using SGA.Application.Dtos;
-
 namespace SGA.Application.Dtos.Personas;
 
-
-public class SaveEstudianteDto : DtoBase
+public class SaveEstudianteDto : SavePersonaDto
 {
-    public int PersonaId { get; set; }
     public string Matricula { get; set; } = string.Empty;
-    public string? Carrera { get; set; }
+    public string Carrera { get; set; } = string.Empty;
+    public DateTime FechaIngreso { get; set; }
 }

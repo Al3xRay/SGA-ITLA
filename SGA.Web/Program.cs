@@ -1,5 +1,6 @@
-using SGA.Infrastructure.Contexts;
-using SGA.Infrastructure.UnitOfWork;
+using SGA.Persistence.Contexts;
+using SGA.Domain.Repository;
+using SGA.Persistence.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
 namespace SGA.Web

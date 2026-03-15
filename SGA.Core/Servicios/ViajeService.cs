@@ -1,327 +1,152 @@
-﻿using SGA.Application.Interfaces;
+using SGA.Application.Dtos.Transporte;
+using SGA.Application.Interfaces;
 using SGA.Domain.Base;
-using SGA.Domain.Entidades.Configuracion;
 using SGA.Domain.Entidades.Transporte;
-using SGAITLA.Application.Dtos.Transporte;
-using SGAITLA.Application.Interfaces;
-using SGAITLA.Domain.Entidades.Personas;
-using SGAITLA.Domain.Entidades.Transporte;
-using SGAITLA.Domain.Repositorios;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SGAITLA.Domain.Base;
+using SGA.Domain.Repository;
 
-
-namespace SGAITLA.Application.Servicios;
+namespace SGA.Application.Servicios;
 
 public class ViajeService : IViajeService
 {
-    private readonly IBaseRepository<Viaje> _viajeRepository;
-    private readonly IBaseRepository<Ruta> _rutaRepository;
-    private readonly IBaseRepository<Autobus> _autobusRepository;
-    private readonly IBaseRepository<Conductor> _conductorRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public ViajeService(
-        IBaseRepository<Viaje> viajeRepository,
-        IBaseRepository<Ruta> rutaRepository,
-        IBaseRepository<Autobus> autobusRepository,
-        IBaseRepository<Conductor> conductorRepository)
+    public ViajeService(IUnitOfWork unitOfWork)
     {
-        _viajeRepository = viajeRepository;
-        _rutaRepository = rutaRepository;
-        _autobusRepository = autobusRepository;
-        _conductorRepository = conductorRepository;
+        _unitOfWork = unitOfWork;
     }
 
-    public async Task<OperationResult<List<ViajeDto>>> GetAll()
+    public async Task<OperationResult<IReadOnlyList<ViajeDto>>> GetAllAsync()
     {
-        try
-        {
-            var viajes = await _viajeRepository.GetAllAsync();
-            var dtos = viajes.Select(v => new ViajeDto
-            {
-                Id = v.Id,
-                RutaId = v.RutaId,
-                RutaNombre = v.Ruta?.Nombre ?? "Desconocida",
-                AutobusId = v.AutobusId,
-                AutobusPlaca = v.Autobus?.Placa ?? "Desconocida",
-                ConductorId = v.ConductorId,
-                ConductorNombre = $"{v.Conductor?.Nombre} {v.Conductor?.Apellido}",
-                FechaSalida = v.FechaSalida,
-                FechaLlegadaEstimada = v.FechaLlegadaEstimada,
-                FechaLlegadaReal = v.FechaLlegadaReal,
-                EstadoViajeId = v.EstadoViajeId,
-                EstadoViajeNombre = v.Estado?.Nombre ?? "Desconocido", 
-                OcupacionActual = v.OcupacionActual,
-                CapacidadAutobus = v.Autobus?.Capacidad ?? 0,
-                Activo = v.Activo
-            }).ToList();
-
-            return OperationResult<List<ViajeDto>>.Ok(dtos, "Viajes obtenidos");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<List<ViajeDto>>.Fail($"Error: {ex.Message}");
-        }
+        var viajes = await _unitOfWork.Viajes.GetAllAsync();
+        var dtos = viajes.Select(MapToDto).ToList().AsReadOnly();
+        return OperationResult<IReadOnlyList<ViajeDto>>.Ok(dtos);
     }
 
-    public async Task<OperationResult<ViajeDto>> GetById(int id)
+    public async Task<OperationResult<ViajeDto>> GetByIdAsync(int id)
     {
-        try
-        {
-            var viaje = await _viajeRepository.GetByIdAsync(id);
-            if (viaje == null)
-                return OperationResult<ViajeDto>.Fail("Viaje no encontrado");
+        var viaje = await _unitOfWork.Viajes.GetByIdAsync(id);
+        if (viaje == null)
+            return OperationResult<ViajeDto>.Fail("Viaje no encontrado.");
 
-            var dto = new ViajeDto
-            {
-                Id = viaje.Id,
-                RutaId = viaje.RutaId,
-                RutaNombre = viaje.Ruta?.Nombre ?? "Desconocida",
-                AutobusId = viaje.AutobusId,
-                AutobusPlaca = viaje.Autobus?.Placa ?? "Desconocida",
-                ConductorId = viaje.ConductorId,
-                ConductorNombre = $"{viaje.Conductor?.Nombre} {viaje.Conductor?.Apellido}",
-                FechaSalida = viaje.FechaSalida,
-                FechaLlegadaEstimada = viaje.FechaLlegadaEstimada,
-                FechaLlegadaReal = viaje.FechaLlegadaReal,
-                EstadoViajeId = viaje.EstadoViajeId,
-                EstadoViajeNombre = viaje.Estado?.Nombre ?? "Desconocido",
-                OcupacionActual = viaje.OcupacionActual,
-                CapacidadAutobus = viaje.Autobus?.Capacidad ?? 0,
-                Activo = viaje.Activo
-            };
-
-            return OperationResult<ViajeDto>.Ok(dto);
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<ViajeDto>.Fail($"Error: {ex.Message}");
-        }
+        return OperationResult<ViajeDto>.Ok(MapToDto(viaje));
     }
 
-    public async Task<OperationResult<int>> Save(SaveViajeDto dto)
+    public async Task<OperationResult> SaveAsync(SaveViajeDto dto)
     {
-        try
+        // Validar que la ruta existe
+        if (!await _unitOfWork.Rutas.ExistsAsync(dto.RutaId))
+            return OperationResult.Fail("La ruta especificada no existe.");
+
+        // Validar que el autobús existe
+        if (!await _unitOfWork.Autobuses.ExistsAsync(dto.AutobusId))
+            return OperationResult.Fail("El autobús especificado no existe.");
+
+        // Validar que el conductor existe
+        if (!await _unitOfWork.Conductores.ExistsAsync(dto.ConductorId))
+            return OperationResult.Fail("El conductor especificado no existe.");
+
+        // Verificar conflicto de horario del conductor
+        var viajesConductor = await _unitOfWork.Viajes.GetByConductorYFechaAsync(dto.ConductorId, dto.FechaProgramada);
+        if (viajesConductor.Any())
+            return OperationResult.Fail("El conductor ya tiene un viaje asignado para esa fecha.");
+
+        var viaje = new Viaje
         {
-            var ruta = await _rutaRepository.GetByIdAsync(dto.RutaId);
-            if (ruta == null)
-                return OperationResult<int>.Fail("Ruta no encontrada");
+            RutaId = dto.RutaId,
+            AutobusId = dto.AutobusId,
+            ConductorId = dto.ConductorId,
+            HorarioId = dto.HorarioId,
+            FechaProgramada = dto.FechaProgramada,
+            EstadoViajeId = 1, // Programado
+            OcupacionActual = 0
+        };
 
-            var autobus = await _autobusRepository.GetByIdAsync(dto.AutobusId);
-            if (autobus == null)
-                return OperationResult<int>.Fail("Autobús no encontrado");
-
-            var conductor = await _conductorRepository.GetByIdAsync(dto.ConductorId);
-            if (conductor == null)
-                return OperationResult<int>.Fail("Conductor no encontrado");
-
-            var viaje = new Viaje
-            {
-                RutaId = dto.RutaId,
-                AutobusId = dto.AutobusId,
-                ConductorId = dto.ConductorId,
-                FechaSalida = dto.FechaSalida,
-                FechaLlegadaEstimada = dto.FechaLlegadaEstimada,
-                EstadoViajeId = 1, // Programado
-                OcupacionActual = 0,
-                FechaCreacion = DateTime.UtcNow,
-                Activo = true
-            };
-
-            await _viajeRepository.AddAsync(viaje);
-            return OperationResult<int>.Ok(viaje.Id, "Viaje guardado correctamente");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<int>.Fail($"Error al guardar: {ex.Message}");
-        }
+        await _unitOfWork.Viajes.AddAsync(viaje);
+        await _unitOfWork.SaveChangesAsync();
+        return OperationResult.Ok("Viaje planificado exitosamente.");
     }
 
-    public async Task<OperationResult<int>> Update(UpdateViajeDto dto)
+    public async Task<OperationResult> UpdateAsync(int id, UpdateViajeDto dto)
     {
-        try
-        {
-            var viaje = await _viajeRepository.GetByIdAsync(dto.Id);
-            if (viaje == null)
-                return OperationResult<int>.Fail("Viaje no encontrado");
+        var viaje = await _unitOfWork.Viajes.GetByIdAsync(id);
+        if (viaje == null)
+            return OperationResult.Fail("Viaje no encontrado.");
 
-            viaje.RutaId = dto.RutaId;
-            viaje.AutobusId = dto.AutobusId;
-            viaje.ConductorId = dto.ConductorId;
-            viaje.EstadoViajeId = dto.EstadoViajeId;
-            viaje.FechaLlegadaReal = dto.FechaLlegadaReal;
-            viaje.OcupacionActual = dto.OcupacionActual;
-            viaje.Activo = dto.Activo;
-            viaje.FechaModificacion = DateTime.UtcNow;
+        viaje.EstadoViajeId = dto.EstadoViajeId;
+        viaje.HoraInicioReal = dto.HoraInicioReal;
+        viaje.HoraFinReal = dto.HoraFinReal;
+        viaje.Observaciones = dto.Observaciones;
 
-            await _viajeRepository.UpdateAsync(viaje);
-            return OperationResult<int>.Ok(viaje.Id, "Viaje actualizado correctamente");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<int>.Fail($"Error al actualizar: {ex.Message}");
-        }
+        _unitOfWork.Viajes.Update(viaje);
+        await _unitOfWork.SaveChangesAsync();
+        return OperationResult.Ok("Viaje actualizado exitosamente.");
     }
 
-    public async Task<OperationResult<bool>> Remove(RemoveViajeDto dto)
+    public async Task<OperationResult> DeleteAsync(int id)
     {
-        try
-        {
-            var viaje = await _viajeRepository.GetByIdAsync(dto.Id);
-            if (viaje == null)
-                return OperationResult<bool>.Fail("Viaje no encontrado");
+        var viaje = await _unitOfWork.Viajes.GetByIdAsync(id);
+        if (viaje == null)
+            return OperationResult.Fail("Viaje no encontrado.");
 
-            viaje.Activo = false;
-            viaje.FechaModificacion = DateTime.UtcNow;
-            await _viajeRepository.UpdateAsync(viaje);
-
-            return OperationResult<bool>.Ok(true, "Viaje eliminado correctamente");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<bool>.Fail($"Error al eliminar: {ex.Message}");
-        }
+        _unitOfWork.Viajes.Delete(viaje);
+        await _unitOfWork.SaveChangesAsync();
+        return OperationResult.Ok("Viaje eliminado exitosamente.");
     }
 
-    public async Task<OperationResult<List<ViajeDto>>> GetActivos()
+    public async Task<OperationResult> IniciarViajeAsync(int viajeId)
     {
-        try
-        {
-            var viajes = await _viajeRepository.FindAsync(v => v.Activo);
-            var dtos = viajes.Select(v => new ViajeDto
-            {
-                Id = v.Id,
-                RutaId = v.RutaId,
-                RutaNombre = v.Ruta?.Nombre ?? "Desconocida",
-                AutobusId = v.AutobusId,
-                AutobusPlaca = v.Autobus?.Placa ?? "Desconocida",
-                ConductorId = v.ConductorId,
-                ConductorNombre = $"{v.Conductor?.Nombre} {v.Conductor?.Apellido}",
-                FechaSalida = v.FechaSalida,
-                FechaLlegadaEstimada = v.FechaLlegadaEstimada,
-                FechaLlegadaReal = v.FechaLlegadaReal,
-                EstadoViajeId = v.EstadoViajeId,
-                EstadoViajeNombre = v.Estado?.Nombre ?? "Desconocido",
-                OcupacionActual = v.OcupacionActual,
-                CapacidadAutobus = v.Autobus?.Capacidad ?? 0,
-                Activo = v.Activo
-            }).ToList();
+        var viaje = await _unitOfWork.Viajes.GetByIdAsync(viajeId);
+        if (viaje == null)
+            return OperationResult.Fail("Viaje no encontrado.");
 
-            return OperationResult<List<ViajeDto>>.Ok(dtos, $"{dtos.Count} viajes activos");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<List<ViajeDto>>.Fail($"Error: {ex.Message}");
-        }
+        if (viaje.HoraInicioReal != null)
+            return OperationResult.Fail("El viaje ya fue iniciado.");
+
+        viaje.HoraInicioReal = DateTime.UtcNow;
+        viaje.EstadoViajeId = 2; // En Curso
+
+        _unitOfWork.Viajes.Update(viaje);
+        await _unitOfWork.SaveChangesAsync();
+        return OperationResult.Ok("Viaje iniciado exitosamente.");
     }
 
-    public async Task<OperationResult<List<ViajeDto>>> GetByRuta(int rutaId)
+    public async Task<OperationResult> FinalizarViajeAsync(int viajeId)
     {
-        try
-        {
-            var viajes = await _viajeRepository.FindAsync(v => v.RutaId == rutaId);
-            var dtos = viajes.Select(v => new ViajeDto
-            {
-                Id = v.Id,
-                RutaId = v.RutaId,
-                RutaNombre = v.Ruta?.Nombre ?? "Desconocida",
-                AutobusId = v.AutobusId,
-                AutobusPlaca = v.Autobus?.Placa ?? "Desconocida",
-                ConductorId = v.ConductorId,
-                ConductorNombre = $"{v.Conductor?.Nombre} {v.Conductor?.Apellido}",
-                FechaSalida = v.FechaSalida,
-                FechaLlegadaEstimada = v.FechaLlegadaEstimada,
-                FechaLlegadaReal = v.FechaLlegadaReal,
-                EstadoViajeId = v.EstadoViajeId,
-                EstadoViajeNombre = v.Estado?.Nombre ?? "Desconocido", 
-                OcupacionActual = v.OcupacionActual,
-                CapacidadAutobus = v.Autobus?.Capacidad ?? 0,
-                Activo = v.Activo
-            }).ToList();
+        var viaje = await _unitOfWork.Viajes.GetByIdAsync(viajeId);
+        if (viaje == null)
+            return OperationResult.Fail("Viaje no encontrado.");
 
-            return OperationResult<List<ViajeDto>>.Ok(dtos, $"{dtos.Count} viajes encontrados");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<List<ViajeDto>>.Fail($"Error: {ex.Message}");
-        }
+        if (viaje.HoraInicioReal == null)
+            return OperationResult.Fail("El viaje no ha sido iniciado.");
+
+        if (viaje.HoraFinReal != null)
+            return OperationResult.Fail("El viaje ya fue finalizado.");
+
+        viaje.HoraFinReal = DateTime.UtcNow;
+        viaje.EstadoViajeId = 3; // Finalizado
+
+        _unitOfWork.Viajes.Update(viaje);
+        await _unitOfWork.SaveChangesAsync();
+        return OperationResult.Ok("Viaje finalizado exitosamente.");
     }
 
-    public async Task<OperationResult<List<ViajeDto>>> GetByConductor(int conductorId)
+    private static ViajeDto MapToDto(Viaje v) => new()
     {
-        try
-        {
-            var viajes = await _viajeRepository.FindAsync(v => v.ConductorId == conductorId);
-            var dtos = viajes.Select(v => new ViajeDto
-            {
-                Id = v.Id,
-                RutaId = v.RutaId,
-                RutaNombre = v.Ruta?.Nombre ?? "Desconocida",
-                AutobusId = v.AutobusId,
-                AutobusPlaca = v.Autobus?.Placa ?? "Desconocida",
-                ConductorId = v.ConductorId,
-                ConductorNombre = $"{v.Conductor?.Nombre} {v.Conductor?.Apellido}",
-                FechaSalida = v.FechaSalida,
-                FechaLlegadaEstimada = v.FechaLlegadaEstimada,
-                FechaLlegadaReal = v.FechaLlegadaReal,
-                EstadoViajeId = v.EstadoViajeId,
-                EstadoViajeNombre = v.Estado?.Nombre ?? "Desconocido", 
-                OcupacionActual = v.OcupacionActual,
-                CapacidadAutobus = v.Autobus?.Capacidad ?? 0,
-                Activo = v.Activo
-            }).ToList();
-
-            return OperationResult<List<ViajeDto>>.Ok(dtos, $"{dtos.Count} viajes encontrados");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<List<ViajeDto>>.Fail($"Error: {ex.Message}");
-        }
-    }
-
-    public async Task<OperationResult<bool>> IniciarViaje(int viajeId)
-    {
-        try
-        {
-            var viaje = await _viajeRepository.GetByIdAsync(viajeId);
-            if (viaje == null)
-                return OperationResult<bool>.Fail("Viaje no encontrado");
-
-            viaje.EstadoViajeId = EstadoViaje.EnCurso;
-            viaje.HoraInicioReal = DateTime.UtcNow;
-            viaje.FechaModificacion = DateTime.UtcNow;
-
-            await _viajeRepository.UpdateAsync(viaje);
-            return OperationResult<bool>.Ok(true, "Viaje iniciado correctamente");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<bool>.Fail($"Error: {ex.Message}");
-        }
-    }
-
-    public async Task<OperationResult<bool>> FinalizarViaje(int viajeId)
-    {
-        try
-        {
-            var viaje = await _viajeRepository.GetByIdAsync(viajeId);
-            if (viaje == null)
-                return OperationResult<bool>.Fail("Viaje no encontrado");
-
-            viaje.EstadoViajeId = 2; // Completado
-            viaje.HoraFinReal = DateTime.UtcNow;
-            viaje.FechaModificacion = DateTime.UtcNow;
-
-            await _viajeRepository.UpdateAsync(viaje);
-            return OperationResult<bool>.Ok(true, "Viaje finalizado correctamente");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<bool>.Fail($"Error: {ex.Message}");
-        }
-    }
+        Id = v.Id,
+        RutaId = v.RutaId,
+        RutaNombre = v.Ruta?.Nombre ?? string.Empty,
+        AutobusId = v.AutobusId,
+        AutobusPlaca = v.Autobus?.Placa ?? string.Empty,
+        ConductorId = v.ConductorId,
+        ConductorNombre = v.Conductor != null ? $"{v.Conductor.Nombre} {v.Conductor.Apellido}" : string.Empty,
+        FechaProgramada = v.FechaProgramada,
+        HoraInicioReal = v.HoraInicioReal,
+        HoraFinReal = v.HoraFinReal,
+        OcupacionActual = v.OcupacionActual,
+        Capacidad = v.Autobus?.Capacidad ?? 0,
+        EstadoViajeNombre = v.Estado?.Nombre ?? string.Empty,
+        Observaciones = v.Observaciones,
+        Activo = v.Activo,
+        FechaCreacion = v.FechaCreacion
+    };
 }

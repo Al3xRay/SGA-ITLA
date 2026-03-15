@@ -1,13 +1,11 @@
-﻿using SGA.Domain.Base;
 using SGA.Application.Dtos.Operaciones;
+using SGA.Domain.Base;
 
 namespace SGA.Application.Interfaces;
 
 public interface IRegistroUsoService
 {
-    Task<OperationResult<List<RegistroUsoDto>>> GetAll();
-    Task<OperationResult<RegistroUsoDto>> GetById(int id);
-    Task<OperationResult<List<RegistroUsoDto>>> GetByPersonaId(int personaId);
-    Task<OperationResult<List<RegistroUsoDto>>> GetByViajeId(int viajeId);
-    Task<OperationResult<List<RegistroUsoDto>>> GetByFecha(DateTime fecha);
+    Task<OperationResult<IReadOnlyList<RegistroUsoDto>>> GetAllAsync();
+    Task<OperationResult<IReadOnlyList<RegistroUsoDto>>> GetByViajeAsync(int viajeId);
+    Task<OperationResult<IReadOnlyList<RegistroUsoDto>>> GetByPersonaAsync(int personaId);
 }

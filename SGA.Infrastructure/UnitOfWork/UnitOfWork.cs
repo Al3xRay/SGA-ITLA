@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore.Storage;
+using SGA.Domain.Repository;
 using SGA.Persistence.Contexts;
 using SGA.Persistence.Repositories.Personas;
 using SGA.Persistence.Repositories.Transporte;
@@ -29,6 +30,7 @@ namespace SGA.Persistence.UnitOfWork
         private RegistroUsoRepository? _registroUsoRepository;
         private IncidenciaRepository? _incidenciaRepository;
 
+        // Repositorios de Configuración (internos, no expuestos por IUnitOfWork del dominio)
         private EstadoAutobusRepository? _estadoAutobusRepository;
         private EstadoConductorRepository? _estadoConductorRepository;
         private EstadoIncidenciaRepository? _estadoIncidenciaRepository;
@@ -43,23 +45,24 @@ namespace SGA.Persistence.UnitOfWork
             _context = context;
         }
 
-        // Propiedades con inicialización lazy
-        public PersonaRepository Personas => _personaRepository ??= new PersonaRepository(_context);
-        public EstudianteRepository Estudiantes => _estudianteRepository ??= new EstudianteRepository(_context);
-        public ConductorRepository Conductores => _conductorRepository ??= new ConductorRepository(_context);
-        public EmpleadoRepository Empleados => _empleadoRepository ??= new EmpleadoRepository(_context);
-        public AdministradorRepository Administradores => _administradorRepository ??= new AdministradorRepository(_context);
+        // Propiedades que retornan interfaces (cumple DIP)
+        public IPersonaRepository Personas => _personaRepository ??= new PersonaRepository(_context);
+        public IEstudianteRepository Estudiantes => _estudianteRepository ??= new EstudianteRepository(_context);
+        public IConductorRepository Conductores => _conductorRepository ??= new ConductorRepository(_context);
+        public IEmpleadoRepository Empleados => _empleadoRepository ??= new EmpleadoRepository(_context);
+        public IAdministradorRepository Administradores => _administradorRepository ??= new AdministradorRepository(_context);
 
-        public AutobusRepository Autobuses => _autobusRepository ??= new AutobusRepository(_context);
-        public RutaRepository Rutas => _rutaRepository ??= new RutaRepository(_context);
-        public ParadaRepository Paradas => _paradaRepository ??= new ParadaRepository(_context);
-        public HorarioRepository Horarios => _horarioRepository ??= new HorarioRepository(_context);
-        public ViajeRepository Viajes => _viajeRepository ??= new ViajeRepository(_context);
+        public IAutobusRepository Autobuses => _autobusRepository ??= new AutobusRepository(_context);
+        public IRutaRepository Rutas => _rutaRepository ??= new RutaRepository(_context);
+        public IParadaRepository Paradas => _paradaRepository ??= new ParadaRepository(_context);
+        public IHorarioRepository Horarios => _horarioRepository ??= new HorarioRepository(_context);
+        public IViajeRepository Viajes => _viajeRepository ??= new ViajeRepository(_context);
 
-        public AutorizacionRepository Autorizaciones => _autorizacionRepository ??= new AutorizacionRepository(_context);
-        public RegistroUsoRepository RegistrosUso => _registroUsoRepository ??= new RegistroUsoRepository(_context);
-        public IncidenciaRepository Incidencias => _incidenciaRepository ??= new IncidenciaRepository(_context);
+        public IAutorizacionRepository Autorizaciones => _autorizacionRepository ??= new AutorizacionRepository(_context);
+        public IRegistroUsoRepository RegistrosUso => _registroUsoRepository ??= new RegistroUsoRepository(_context);
+        public IIncidenciaRepository Incidencias => _incidenciaRepository ??= new IncidenciaRepository(_context);
 
+        // Repositorios de Configuración (acceso directo para la infraestructura)
         public EstadoAutobusRepository EstadoAutobuses => _estadoAutobusRepository ??= new EstadoAutobusRepository(_context);
         public EstadoConductorRepository EstadoConductores => _estadoConductorRepository ??= new EstadoConductorRepository(_context);
         public EstadoIncidenciaRepository EstadoIncidencias => _estadoIncidenciaRepository ??= new EstadoIncidenciaRepository(_context);
@@ -69,9 +72,9 @@ namespace SGA.Persistence.UnitOfWork
         public TipoPersonaRepository TipoPersonas => _tipoPersonaRepository ??= new TipoPersonaRepository(_context);
         public TipoRegistroRepository TipoRegistros => _tipoRegistroRepository ??= new TipoRegistroRepository(_context);
 
-        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public async Task<int> SaveChangesAsync(CancellationToken ct = default)
         {
-            return await _context.SaveChangesAsync(cancellationToken);
+            return await _context.SaveChangesAsync(ct);
         }
 
         public async Task BeginTransactionAsync()
@@ -113,6 +116,7 @@ namespace SGA.Persistence.UnitOfWork
                 _transaction = null;
             }
         }
+
         public async ValueTask DisposeAsync()
         {
             if (_transaction != null)

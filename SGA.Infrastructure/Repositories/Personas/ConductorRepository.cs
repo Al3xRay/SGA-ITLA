@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using SGA.Domain.Entidades.Personas;
+using SGA.Domain.Repository;
 using SGA.Persistence.Contexts;
 using SGA.Persistence.Repositories.Base;
 
 namespace SGA.Persistence.Repositories.Personas
 {
-    public class ConductorRepository : BaseRepository<Conductor>
+    public class ConductorRepository : BaseRepository<Conductor>, IConductorRepository
     {
         public ConductorRepository(ApplicationDbContext context) : base(context)
         {
@@ -21,6 +22,11 @@ namespace SGA.Persistence.Repositories.Personas
             return await _dbSet
                 .Where(e => e.FechaVencimientoLicencia <= expiryDate)
                 .ToListAsync();
+        }
+
+        public async Task<IReadOnlyList<Conductor>> GetActivosAsync()
+        {
+            return await _dbSet.ToListAsync();
         }
     }
 }

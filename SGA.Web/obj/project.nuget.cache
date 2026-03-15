@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GR5hMueCmcA=",
+  "dgSpecHash": "lRh1wDIJhoA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Web\\SGA.Web.csproj",
+  "projectFilePath": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Web\\SGA.Web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Alexander\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Alexander\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

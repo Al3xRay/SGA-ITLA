@@ -1,15 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SGA.Domain.Entidades.Operaciones;
+using SGA.Domain.Repository;
 using SGA.Persistence.Contexts;
 using SGA.Persistence.Repositories.Base;
 
 namespace SGA.Persistence.Repositories.Operaciones
 {
-    public class AutorizacionRepository : BaseRepository<Autorizacion>
+    public class AutorizacionRepository : BaseRepository<Autorizacion>, IAutorizacionRepository
     {
         public AutorizacionRepository(ApplicationDbContext context) : base(context)
         {
-
         }
 
         public async Task<IReadOnlyList<Autorizacion>> GetVigentesAsync(int personaId)
@@ -18,6 +18,13 @@ namespace SGA.Persistence.Repositories.Operaciones
                 .Where(a => a.PersonaId == personaId && a.FechaVencimiento > DateTime.UtcNow)
                 .ToListAsync();
         }
+
+        public async Task<Autorizacion?> GetActivaByPersonaAsync(int personaId)
+        {
+            return await _dbSet
+                .Where(a => a.PersonaId == personaId && a.FechaVencimiento > DateTime.UtcNow)
+                .OrderByDescending(a => a.FechaEmision)
+                .FirstOrDefaultAsync();
+        }
     }
 }
-

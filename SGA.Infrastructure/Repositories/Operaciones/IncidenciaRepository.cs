@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using SGA.Domain.Entidades.Operaciones;
+using SGA.Domain.Repository;
 using SGA.Persistence.Contexts;
 
 namespace SGA.Persistence.Repositories.Operaciones
 {
-    public class IncidenciaRepository
+    public class IncidenciaRepository : IIncidenciaRepository
     {
         protected readonly ApplicationDbContext _context;
         protected readonly DbSet<Incidencia> _dbSet;
@@ -22,6 +23,10 @@ namespace SGA.Persistence.Repositories.Operaciones
         public virtual void Delete(Incidencia entity) => _dbSet.Remove(entity);
         public virtual async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) => await _context.SaveChangesAsync(cancellationToken);
         public virtual async Task<bool> ExistsAsync(int id) => await _dbSet.AnyAsync(e => e.Id == id);
+
+        public async Task<IReadOnlyList<Incidencia>> GetByViajeAsync(int viajeId)
+        {
+            return await _dbSet.Where(i => i.ViajeId == viajeId).ToListAsync();
+        }
     }
 }
-

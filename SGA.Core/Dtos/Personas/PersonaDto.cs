@@ -1,16 +1,13 @@
-﻿namespace SGA.Application.Dtos.Personas;
+namespace SGA.Application.Dtos.Personas;
 
-public class PersonaDto
+public class PersonaDto : DtoBase
 {
-    public int Id { get; set; }
     public string Nombre { get; set; } = string.Empty;
     public string Apellido { get; set; } = string.Empty;
+    public string NombreCompleto => $"{Nombre} {Apellido}";
     public string DocumentoIdentidad { get; set; } = string.Empty;
     public string? Telefono { get; set; }
-    public string TipoPersona { get; set; } = string.Empty;
-    public bool Activo { get; set; }
-
-
-    public string? Matricula { get; set; }
-    public string? LicenciaConducir { get; set; }
+    public string? Direccion { get; set; }
+    public DateTime? FechaNacimiento { get; set; }
+    public string TipoPersonaNombre { get; set; } = string.Empty;
 }

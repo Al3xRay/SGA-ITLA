@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using SGA.Domain.Entidades.Personas;
+using SGA.Domain.Repository;
 using SGA.Persistence.Contexts;
 using SGA.Persistence.Repositories.Base;
 
 namespace SGA.Persistence.Repositories.Personas
 {
-    public class EstudianteRepository : BaseRepository<Estudiante>
+    public class EstudianteRepository : BaseRepository<Estudiante>, IEstudianteRepository
     {
         public EstudianteRepository(ApplicationDbContext context) : base(context)
         {

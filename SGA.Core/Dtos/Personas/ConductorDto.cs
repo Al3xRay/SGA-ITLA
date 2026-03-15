@@ -1,14 +1,10 @@
-﻿using SGA.Application.Dtos;
+namespace SGA.Application.Dtos.Personas;
 
-namespace SGAITLA.Application.Dtos.Personas;
-
-public class ConductorDto : DtoBase
+public class ConductorDto : PersonaDto
 {
-    public int Id { get; set; }
-    public int PersonaId { get; set; }
-    public string NombreCompleto { get; set; } = string.Empty;
-    public string DocumentoIdentidad { get; set; } = string.Empty;
     public string LicenciaConducir { get; set; } = string.Empty;
-    public DateTime? FechaVencimientoLicencia { get; set; }
-    public bool Activo { get; set; }
+    public DateTime FechaVencimientoLicencia { get; set; }
+    public string CategoriaLicencia { get; set; } = string.Empty;
+    public string EstadoConductorNombre { get; set; } = string.Empty;
+    public DateTime FechaContratacion { get; set; }
 }

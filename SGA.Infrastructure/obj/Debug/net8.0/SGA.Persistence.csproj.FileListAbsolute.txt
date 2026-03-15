@@ -14,3 +14,19 @@ C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\SGA.Pers
 C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\refint\SGA.Persistence.dll
 C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\SGA.Persistence.pdb
 C:\Users\Alexander\Desktop\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\ref\SGA.Persistence.dll
+c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Infrastructure\bin\Debug\net8.0\SGA.Persistence.deps.json
+c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Infrastructure\bin\Debug\net8.0\SGA.Persistence.dll
+c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Infrastructure\bin\Debug\net8.0\SGA.Persistence.pdb
+c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Infrastructure\bin\Debug\net8.0\SGA.Domain.dll
+c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Infrastructure\bin\Debug\net8.0\SGA.Domain.pdb
+c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\SGA.Persistence.csproj.AssemblyReference.cache
+c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\SGA.Persistence.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\SGA.Persistence.AssemblyInfoInputs.cache
+c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\SGA.Persistence.AssemblyInfo.cs
+c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\SGA.Persistence.csproj.CoreCompileInputs.cache
+c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\SGA.Persistence.sourcelink.json
+c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\SGA.Pers.680917C1.Up2Date
+c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\SGA.Persistence.dll
+c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\refint\SGA.Persistence.dll
+c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\SGA.Persistence.pdb
+c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Infrastructure\obj\Debug\net8.0\ref\SGA.Persistence.dll

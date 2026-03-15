@@ -1,12 +1,12 @@
-﻿using SGA.Domain.Base;
+using SGA.Domain.Base;
 
 namespace SGA.Application.Base;
 
-public interface IBaseService<TDtoSave, TDtoUpdate, TDtoRemove>
+public interface IBaseService<TDto, TSaveDto, TUpdateDto>
 {
-    Task<OperationResult> GetAll();
-    Task<OperationResult> GetById(int Id);
-    Task<OperationResult> Save(TDtoSave dto);
-    Task<OperationResult> Update(TDtoUpdate dto);
-    Task<OperationResult> Remove(TDtoRemove dto);
+    Task<OperationResult<IReadOnlyList<TDto>>> GetAllAsync();
+    Task<OperationResult<TDto>> GetByIdAsync(int id);
+    Task<OperationResult> SaveAsync(TSaveDto dto);
+    Task<OperationResult> UpdateAsync(int id, TUpdateDto dto);
+    Task<OperationResult> DeleteAsync(int id);
 }

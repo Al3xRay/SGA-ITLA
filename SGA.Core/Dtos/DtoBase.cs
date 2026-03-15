@@ -1,9 +1,8 @@
-﻿namespace SGA.Application.Dtos;
+namespace SGA.Application.Dtos;
 
 public class DtoBase
 {
-
-    public DateTime ChangeDate { get; set; }
-    public int ChangeUser { get; set; }
-
+    public int Id { get; set; }
+    public bool Activo { get; set; }
+    public DateTime FechaCreacion { get; set; }
 }

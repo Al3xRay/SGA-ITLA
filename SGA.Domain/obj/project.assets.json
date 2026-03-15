@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj",
       "projectName": "SGA.Domain",
-      "projectPath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj",
+      "projectPath": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Domain\\SGA.Domain.csproj",
       "packagesPath": "C:\\Users\\Alexander\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Alexander\\Desktop\\SGA-ITLA\\SGA.Domain\\obj\\",
+      "outputPath": "C:\\Users\\Alexander\\Desktop\\ITLA\\2026-C1\\Programacion II\\SGA-ITLA\\SGA.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -52,7 +52,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "10.0.200"
     },
     "frameworks": {
       "net8.0": {
@@ -73,7 +73,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SGA.Domain.Entidades.Transporte;
+using SGA.Domain.Repository;
 using SGA.Persistence.Contexts;
 using SGA.Persistence.Repositories.Base;
 
 namespace SGA.Persistence.Repositories.Transporte
 {
-    public class AutobusRepository : BaseRepository<Autobus>
+    public class AutobusRepository : BaseRepository<Autobus>, IAutobusRepository
     {
         public AutobusRepository(ApplicationDbContext context) : base(context)
         {
@@ -22,6 +23,12 @@ namespace SGA.Persistence.Repositories.Transporte
                 .Where(e => e.Capacidad >= capacidadMinima)
                 .ToListAsync();
         }
+
+        public async Task<IReadOnlyList<Autobus>> GetDisponiblesAsync(int estadoDisponibleId)
+        {
+            return await _dbSet
+                .Where(e => e.EstadoAutobusId == estadoDisponibleId)
+                .ToListAsync();
+        }
     }
 }
-

@@ -34,9 +34,8 @@ namespace SGA.Persistence.Configurations.Operaciones
                 .HasForeignKey(e => e.ViajeId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // ON DELETE SET NULL (no CASCADE)
             builder.HasOne(e => e.Autorizacion)
-                .WithMany()
+                .WithMany(a => a.Consumos)
                 .HasForeignKey(e => e.AutorizacionId)
                 .OnDelete(DeleteBehavior.SetNull);
 

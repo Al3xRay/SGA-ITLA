@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SGA.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b5a3fc730f2a455e2a6f189a357cf3fc79084fc1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+16bd1cf2c8109296d03e90953e8adead268bb285")]
 [assembly: System.Reflection.AssemblyProductAttribute("SGA.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SGA.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

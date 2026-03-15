@@ -159,4 +159,3 @@ c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Web\obj\Deb
 c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Web\obj\Debug\net8.0\SGA.Web.pdb
 c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Web\obj\Debug\net8.0\SGA.Web.genruntimeconfig.cache
 c:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Web\obj\Debug\net8.0\ref\SGA.Web.dll
-C:\Users\Alexander\Desktop\ITLA\2026-C1\Programacion II\SGA-ITLA\SGA.Web\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

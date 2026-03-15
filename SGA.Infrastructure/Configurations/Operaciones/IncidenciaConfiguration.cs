@@ -13,20 +13,22 @@ namespace SGA.Persistence.Configurations.Operaciones
             builder.HasKey(e => e.Id);
 
             builder.Property(e => e.Descripcion)
-                .HasMaxLength(500);
+                .HasMaxLength(1000);
 
             builder.Property(e => e.FechaReporte)
                 .HasColumnType("datetime2")
                 .IsRequired();
 
+            // ← fix 1: la columna en BD se llama Gravedad, no EsGrave
             builder.Property(e => e.EsGrave)
+                .HasColumnName("Gravedad")
                 .IsRequired();
 
             builder.Property(e => e.EvidenciaUrl)
                 .HasMaxLength(500);
 
             builder.Property(e => e.Resolucion)
-                .HasMaxLength(500);
+                .HasMaxLength(1000);
 
             builder.Property(e => e.FechaResolucion)
                 .HasColumnType("datetime2");
@@ -48,7 +50,7 @@ namespace SGA.Persistence.Configurations.Operaciones
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(e => e.ReportadoPor)
-                .WithMany()
+                .WithMany(c => c.IncidenciasReportadas)
                 .HasForeignKey(e => e.ReportadoPorConductorId)
                 .OnDelete(DeleteBehavior.Restrict);
         }

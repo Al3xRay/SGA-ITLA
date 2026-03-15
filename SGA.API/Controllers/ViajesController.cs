@@ -6,7 +6,7 @@ using SGA.Application.Interfaces;
 namespace SGA.API.Controllers;
 
 [Route("api/[controller]")]
-[Authorize(Policy = "AdminOnly")]
+[Authorize]  // ← solo requiere estar autenticado, la política va en cada método
 public class ViajesController : BaseApiController
 {
     private readonly IViajeService _viajeService;
@@ -17,6 +17,7 @@ public class ViajesController : BaseApiController
     }
 
     [HttpGet]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> GetAll()
     {
         var result = await _viajeService.GetAllAsync();
@@ -24,6 +25,7 @@ public class ViajesController : BaseApiController
     }
 
     [HttpGet("{id}")]
+    [Authorize(Policy = "AdminOrConductor")]
     public async Task<IActionResult> GetById(int id)
     {
         var result = await _viajeService.GetByIdAsync(id);
@@ -31,6 +33,7 @@ public class ViajesController : BaseApiController
     }
 
     [HttpPost]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> Create([FromBody] SaveViajeDto dto)
     {
         var result = await _viajeService.SaveAsync(dto);
@@ -38,6 +41,7 @@ public class ViajesController : BaseApiController
     }
 
     [HttpPut("{id}")]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> Update(int id, [FromBody] UpdateViajeDto dto)
     {
         var result = await _viajeService.UpdateAsync(id, dto);
@@ -45,6 +49,7 @@ public class ViajesController : BaseApiController
     }
 
     [HttpPost("{id}/iniciar")]
+    [Authorize(Policy = "AdminOrConductor")]
     public async Task<IActionResult> Iniciar(int id)
     {
         var result = await _viajeService.IniciarViajeAsync(id);
@@ -52,6 +57,7 @@ public class ViajesController : BaseApiController
     }
 
     [HttpPost("{id}/finalizar")]
+    [Authorize(Policy = "AdminOrConductor")]
     public async Task<IActionResult> Finalizar(int id)
     {
         var result = await _viajeService.FinalizarViajeAsync(id);
@@ -59,6 +65,7 @@ public class ViajesController : BaseApiController
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> Delete(int id)
     {
         var result = await _viajeService.DeleteAsync(id);

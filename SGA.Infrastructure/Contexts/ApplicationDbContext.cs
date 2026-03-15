@@ -51,13 +51,15 @@ namespace SGA.Persistence.Contexts
 
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
-                if (entityType.ClrType.IsAssignableTo(typeof(AuditEntity)))
+                if (entityType.ClrType.IsAssignableTo(typeof(AuditEntity))
+                    && entityType.BaseType == null)
                 {
                     var parameter = System.Linq.Expressions.Expression.Parameter(entityType.ClrType);
                     var property = System.Linq.Expressions.Expression.PropertyOrField(parameter, "Activo");
-                    var body = System.Linq.Expressions.Expression.Equal(property, System.Linq.Expressions.Expression.Constant(true));
-                    var lambda = System.Linq.Expressions.Expression.Lambda(body, parameter);
+                    var body = System.Linq.Expressions.Expression.Equal(property,
 
+                    System.Linq.Expressions.Expression.Constant(true));
+                    var lambda = System.Linq.Expressions.Expression.Lambda(body, parameter);
                     modelBuilder.Entity(entityType.ClrType).HasQueryFilter(lambda);
                 }
             }

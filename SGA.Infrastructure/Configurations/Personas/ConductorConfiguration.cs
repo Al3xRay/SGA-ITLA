@@ -8,8 +8,8 @@ namespace SGA.Persistence.Configurations.Personas
     {
         protected override void ConfigureEntity(EntityTypeBuilder<Conductor> builder)
         {
-            builder.ToTable("Conductores");
-            builder.HasKey(e => e.Id);
+            builder.ToTable("Conductores", t => t.Property(e => e.Id).HasColumnName("PersonaId"));
+
 
             builder.Property(e => e.LicenciaConducir)
                 .IsRequired()

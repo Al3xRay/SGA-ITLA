@@ -25,20 +25,30 @@ public class AccesoService : IAccesoService
         {
             await _unitOfWork.BeginTransactionAsync();
 
-            // 1. Verificar que el viaje exista y esté 'En Curso'
+            // 1. Verificar que el viaje exista y esté en curso
             var viaje = await _unitOfWork.Viajes.GetByIdAsync(dto.ViajeId);
             if (viaje == null)
-                return await DenegarAcceso(dto, "El viaje especificado no existe.");
+            {
+                await _unitOfWork.RollbackAsync();
+                return OperationResult<ResultadoAccesoDto>.Fail("El viaje especificado no existe.");
+            }
 
             if (viaje.HoraInicioReal == null || viaje.HoraFinReal != null)
-                return await DenegarAcceso(dto, "El viaje no está en curso.");
+            {
+                await _unitOfWork.RollbackAsync();
+                return OperationResult<ResultadoAccesoDto>.Fail("El viaje no está en curso.");
+            }
 
             // 2. Verificar que la persona exista
             var persona = await _unitOfWork.Personas.GetByIdAsync(dto.PersonaId);
             if (persona == null)
-                return await DenegarAcceso(dto, "La persona no existe en el sistema.");
+            {
+                await _unitOfWork.RollbackAsync();
+                // ← tampoco llamamos DenegarAcceso — PersonaId inválido
+                return OperationResult<ResultadoAccesoDto>.Fail("La persona no existe en el sistema.");
+            }
 
-            // 3. Verificar autorización activa
+            // A partir de aquí PERSONA y VIAJE son válidos — podemos registrar rechazos
             var autorizacion = await _unitOfWork.Autorizaciones.GetActivaByPersonaAsync(dto.PersonaId);
             if (autorizacion == null)
                 return await DenegarAcceso(dto, "La persona no tiene una autorización activa.");
@@ -46,19 +56,21 @@ public class AccesoService : IAccesoService
             if (autorizacion.FechaVencimiento < DateTime.UtcNow)
                 return await DenegarAcceso(dto, "La autorización ha vencido.");
 
-            // 4. Verificar saldo/viajes disponibles
-            if (autorizacion.ViajesRestantes.HasValue && autorizacion.ViajesRestantes.Value <= 0)
-                return await DenegarAcceso(dto, "No tiene viajes disponibles en su autorización.");
+            bool sinViajes = autorizacion.ViajesRestantes.HasValue
+                             && autorizacion.ViajesRestantes.Value <= 0;
+            bool sinSaldo = !autorizacion.ViajesRestantes.HasValue
+                             && autorizacion.Saldo <= 0;
 
-            if (autorizacion.Saldo <= 0)
+            if (sinViajes)
+                return await DenegarAcceso(dto, "No tiene viajes disponibles en su autorización.");
+            if (sinSaldo)
                 return await DenegarAcceso(dto, "Saldo insuficiente en la autorización.");
 
-            // 5. Verificar capacidad del autobús
             var autobus = await _unitOfWork.Autobuses.GetByIdAsync(viaje.AutobusId);
             if (autobus != null && viaje.OcupacionActual >= autobus.Capacidad)
                 return await DenegarAcceso(dto, "El autobús ha alcanzado su capacidad máxima.");
 
-            // 6. Todas las validaciones pasaron — registrar acceso permitido
+            // Todas las validaciones OK — registrar acceso permitido
             var registro = new RegistroUso
             {
                 PersonaId = dto.PersonaId,
@@ -66,19 +78,16 @@ public class AccesoService : IAccesoService
                 AutorizacionId = autorizacion.Id,
                 FechaHora = DateTime.UtcNow,
                 AccesoPermitido = true,
-                TipoRegistroId = 1, // Abordaje
+                TipoRegistroId = 1,
                 ValidadoPorConductorId = dto.ConductorId
             };
 
             await _unitOfWork.RegistrosUso.AddAsync(registro);
 
-            // Debitar autorización
             if (autorizacion.ViajesRestantes.HasValue)
                 autorizacion.ViajesRestantes--;
-
             _unitOfWork.Autorizaciones.Update(autorizacion);
 
-            // Incrementar ocupación
             viaje.OcupacionActual++;
             _unitOfWork.Viajes.Update(viaje);
 

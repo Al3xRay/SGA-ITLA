@@ -47,8 +47,11 @@ public class ViajeService : IViajeService
 
         // Verificar conflicto de horario del conductor
         var viajesConductor = await _unitOfWork.Viajes.GetByConductorYFechaAsync(dto.ConductorId, dto.FechaProgramada);
-        if (viajesConductor.Any())
-            return OperationResult.Fail("El conductor ya tiene un viaje asignado para esa fecha.");
+
+        // Solo bloquea si el viaje está Programado (1) o En Curso (2)
+        // Completado (3) y Cancelado (4) no deben bloquear al conductor
+        if (viajesConductor.Any(v => v.EstadoViajeId == 1 || v.EstadoViajeId == 2))
+            return OperationResult.Fail("El conductor ya tiene un viaje activo asignado para esa fecha.");
 
         var viaje = new Viaje
         {

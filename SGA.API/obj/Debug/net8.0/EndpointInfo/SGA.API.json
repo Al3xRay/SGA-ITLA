@@ -3,7 +3,7 @@
   "info": {
     "title": "SGA-ITLA API",
     "description": "Sistema de Gestión de Autobuses del ITLA",
-    "version": "v1 "
+    "version": "v1"
   },
   "paths": {
     "/api/Acceso/validar": {

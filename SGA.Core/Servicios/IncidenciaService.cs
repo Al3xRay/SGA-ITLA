@@ -33,24 +33,52 @@ public class IncidenciaService : IIncidenciaService
 
     public async Task<OperationResult> SaveAsync(SaveIncidenciaDto dto)
     {
-        var incidencia = new Incidencia
+        try
         {
-            ViajeId = dto.ViajeId,
-            TipoIncidenciaId = dto.TipoIncidenciaId,
-            Descripcion = dto.Descripcion,
-            FechaReporte = DateTime.UtcNow,
-            EsGrave = dto.EsGrave,
-            EvidenciaUrl = dto.EvidenciaUrl,
-            EstadoIncidenciaId = 1, // Reportada
-            ReportadoPorConductorId = dto.ReportadoPorConductorId
-        };
+            // Validar que el viaje existe
+            var viaje = await _unitOfWork.Viajes.GetByIdAsync(dto.ViajeId);
+            if (viaje == null)
+                return OperationResult.Fail($"No existe un viaje con ID {dto.ViajeId}.");
 
-        await _unitOfWork.Incidencias.AddAsync(incidencia);
-        await _unitOfWork.SaveChangesAsync();
-        return OperationResult.Ok("Incidencia reportada exitosamente.");
+            // Validar que el conductor existe
+            var conductor = await _unitOfWork.Conductores.GetByIdAsync(
+                dto.ReportadoPorConductorId);
+            if (conductor == null)
+                return OperationResult.Fail($"No existe un conductor con ID {dto.ReportadoPorConductorId}.");
+
+            var incidencia = new Incidencia
+            {
+                ViajeId = dto.ViajeId,
+                TipoIncidenciaId = dto.TipoIncidenciaId,
+                Descripcion = dto.Descripcion,
+                FechaReporte = DateTime.UtcNow,
+                EsGrave = dto.EsGrave,
+                EvidenciaUrl = dto.EvidenciaUrl,
+                EstadoIncidenciaId = 1,
+                ReportadoPorConductorId = dto.ReportadoPorConductorId
+            };
+
+            await _unitOfWork.Incidencias.AddAsync(incidencia);
+            await _unitOfWork.SaveChangesAsync();
+
+            return OperationResult.Ok("Incidencia reportada exitosamente.");
+        }
+        catch (Exception ex)
+        {
+            var mensaje = ex.InnerException?.Message ?? ex.Message;
+
+            if (mensaje.Contains("FK_Incidencias_ReportadoPor"))
+                return OperationResult.Fail("El conductor especificado no existe en la base de datos.");
+
+            if (mensaje.Contains("FK_Incidencias") || mensaje.Contains("ViajeId"))
+                return OperationResult.Fail("El viaje especificado no existe en la base de datos.");
+
+            return OperationResult.Fail($"Error al guardar la incidencia: {mensaje}");
+        }
     }
 
-    public async Task<OperationResult<IReadOnlyList<IncidenciaDto>>> GetByViajeAsync(int viajeId)
+    public async Task<OperationResult<IReadOnlyList<IncidenciaDto>>> GetByViajeAsync(
+        int viajeId)
     {
         var incidencias = await _unitOfWork.Incidencias.GetByViajeAsync(viajeId);
         var dtos = incidencias.Select(MapToDto).ToList().AsReadOnly();
@@ -59,17 +87,26 @@ public class IncidenciaService : IIncidenciaService
 
     public async Task<OperationResult> ResolverAsync(int id, string resolucion)
     {
-        var incidencia = await _unitOfWork.Incidencias.GetByIdAsync(id);
-        if (incidencia == null)
-            return OperationResult.Fail("Incidencia no encontrada.");
+        try
+        {
+            var incidencia = await _unitOfWork.Incidencias.GetByIdAsync(id);
+            if (incidencia == null)
+                return OperationResult.Fail("Incidencia no encontrada.");
 
-        incidencia.Resolucion = resolucion;
-        incidencia.FechaResolucion = DateTime.UtcNow;
-        incidencia.EstadoIncidenciaId = 2; // Resuelta
+            incidencia.Resolucion = resolucion;
+            incidencia.FechaResolucion = DateTime.UtcNow;
+            incidencia.EstadoIncidenciaId = 2; // Resuelta
 
-        _unitOfWork.Incidencias.Update(incidencia);
-        await _unitOfWork.SaveChangesAsync();
-        return OperationResult.Ok("Incidencia resuelta exitosamente.");
+            _unitOfWork.Incidencias.Update(incidencia);
+            await _unitOfWork.SaveChangesAsync();
+
+            return OperationResult.Ok("Incidencia resuelta exitosamente.");
+        }
+        catch (Exception ex)
+        {
+            var mensaje = ex.InnerException?.Message ?? ex.Message;
+            return OperationResult.Fail($"Error al resolver la incidencia: {mensaje}");
+        }
     }
 
     private static IncidenciaDto MapToDto(Incidencia i) => new()

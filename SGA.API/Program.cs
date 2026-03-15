@@ -51,7 +51,8 @@ namespace SGA.API
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = builder.Configuration["Jwt:Issuer"],
                     ValidAudience = builder.Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                                                  Encoding.UTF8.GetBytes(jwtKey))
                 };
             });
 
@@ -60,6 +61,9 @@ namespace SGA.API
                 opt.AddPolicy("AdminOnly", p => p.RequireRole("Administrador"));
                 opt.AddPolicy("ConductorOnly", p => p.RequireRole("Conductor"));
                 opt.AddPolicy("UsuarioFinal", p => p.RequireRole("Estudiante", "Empleado"));
+
+                opt.AddPolicy("AdminOrConductor", p =>
+                    p.RequireRole("Administrador", "Conductor"));
             });
 
             // ─── Controllers & Swagger ───
@@ -70,7 +74,7 @@ namespace SGA.API
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "SGA-ITLA API",
-                    Version = "v1 ",
+                    Version = "v1",
                     Description = "Sistema de Gestión de Autobuses del ITLA"
                 });
 
@@ -91,7 +95,7 @@ namespace SGA.API
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
+                                Id   = "Bearer"
                             }
                         },
                         Array.Empty<string>()

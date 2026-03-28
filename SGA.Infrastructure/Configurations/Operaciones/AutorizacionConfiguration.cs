@@ -21,14 +21,14 @@ namespace SGA.Persistence.Configurations.Operaciones
                 .HasColumnType("date")
                 .IsRequired();
 
-            // RESTRICCIÓN: FechaVencimiento > FechaEmision
+            
             builder.HasCheckConstraint("CK_Autorizacion_Fechas", "[FechaVencimiento] > [FechaEmision]");
 
             builder.Property(e => e.Saldo)
                 .HasColumnType("decimal(10, 2)")
                 .IsRequired();
 
-            // Relaciones
+
             builder.HasOne(e => e.Persona)
                 .WithMany(p => p.Autorizaciones)
                 .HasForeignKey(e => e.PersonaId)

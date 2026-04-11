@@ -1,0 +1,21 @@
+using SGA.Domain.Base;
+using SGA.Domain.Entidades.Configuracion;
+using SGA.Domain.Entidades.Operaciones;
+
+namespace SGA.Domain.Entidades.Personas;
+
+public abstract class Persona : AuditEntity
+{
+    public string Nombre { get; set; } = string.Empty;
+    public string Apellido { get; set; } = string.Empty;
+    public string DocumentoIdentidad { get; set; } = string.Empty;
+    public string? Telefono { get; set; }
+    public string? Direccion { get; set; }
+    public DateTime? FechaNacimiento { get; set; }
+    public int TipoPersonaId { get; set; }
+    public string? Contrasena { get; set; }
+
+    public TipoPersona Tipo { get; set; } = null!;
+    public ICollection<Autorizacion> Autorizaciones { get; set; } = new List<Autorizacion>();
+    public ICollection<RegistroUso> RegistrosUso { get; set; } = new List<RegistroUso>();
+}

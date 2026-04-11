@@ -1,0 +1,140 @@
+@using SGA.Web.Helpers
+@{
+    var role = Context.Session.GetString(SessionKeys.UserRole) ?? "";
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+}
+
+<a id="nav-home" class="sidebar-link @(controller == "Home" ? "active" : "")"
+   asp-controller="Home" asp-action="Index">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+    <span>Inicio</span>
+</a>
+
+@if (role == "Administrador")
+{
+    <div class="sidebar-section">Gestión de Recursos</div>
+
+    <a id="nav-autobuses" class="sidebar-link @(controller == "Autobuses" ? "active" : "")"
+       asp-controller="Autobuses" asp-action="Index">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="6" width="18" height="13" rx="2"/>
+            <path d="M3 11h18"/>
+            <circle cx="7" cy="19" r="1.5" fill="currentColor" stroke="none"/>
+            <circle cx="17" cy="19" r="1.5" fill="currentColor" stroke="none"/>
+        </svg>
+        <span>Autobuses</span>
+    </a>
+
+    <a id="nav-rutas" class="sidebar-link @(controller == "Rutas" ? "active" : "")"
+       asp-controller="Rutas" asp-action="Index">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 10-16 0c0 3 2.7 7 8 11.7z"/>
+        </svg>
+        <span>Rutas</span>
+    </a>
+
+    <a id="nav-personas" class="sidebar-link @(controller == "Personas" ? "active" : "")"
+       asp-controller="Personas" asp-action="Index">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+            <path d="M16 3.13a4 4 0 010 7.75"/>
+        </svg>
+        <span>Personas</span>
+    </a>
+
+    <a id="nav-conductores" class="sidebar-link @(controller == "Conductores" ? "active" : "")"
+       asp-controller="Conductores" asp-action="Index">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>Conductores</span>
+    </a>
+
+    <div class="sidebar-section">Operaciones</div>
+
+    <a id="nav-viajes" class="sidebar-link @(controller == "Viajes" ? "active" : "")"
+       asp-controller="Viajes" asp-action="Index">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <span>Viajes</span>
+    </a>
+
+    <a id="nav-autorizaciones" class="sidebar-link @(controller == "Autorizaciones" ? "active" : "")"
+       asp-controller="Autorizaciones" asp-action="Index">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="4" width="22" height="16" rx="2"/>
+            <line x1="1" y1="10" x2="23" y2="10"/>
+        </svg>
+        <span>Autorizaciones</span>
+    </a>
+
+    <a id="nav-incidencias" class="sidebar-link @(controller == "Incidencias" ? "active" : "")"
+       asp-controller="Incidencias" asp-action="Index">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        <span>Incidencias</span>
+    </a>
+
+    <div class="sidebar-section">Supervisión</div>
+
+    <a id="nav-finanzas" class="sidebar-link @(controller == "Finanzas" ? "active" : "")"
+       asp-controller="Finanzas" asp-action="Index">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"/>
+            <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+        </svg>
+        <span>Finanzas</span>
+    </a>
+
+    <a id="nav-auditoria" class="sidebar-link @(controller == "Auditoria" ? "active" : "")"
+       asp-controller="Auditoria" asp-action="Index">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+        </svg>
+        <span>Auditoría</span>
+    </a>
+}
+
+@if (role == "Estudiante" || role == "Empleado")
+{
+    <div class="sidebar-section">Mi Transporte</div>
+
+    <a id="nav-billetera" class="sidebar-link @(controller == "Billetera" ? "active" : "")"
+       asp-controller="Billetera" asp-action="Index">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 12V22H4V12"/>
+            <path d="M22 7H2v5h20V7z"/>
+            <path d="M12 22V7"/>
+            <path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/>
+            <path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/>
+        </svg>
+        <span>Mi Billetera</span>
+    </a>
+
+    <a id="nav-rutas-publicas" class="sidebar-link @(controller == "Rutas" ? "active" : "")"
+       asp-controller="Rutas" asp-action="Publicas">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="10" r="3"/>
+            <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 10-16 0c0 3 2.7 7 8 11.7z"/>
+        </svg>
+        <span>Rutas y Horarios</span>
+    </a>
+}

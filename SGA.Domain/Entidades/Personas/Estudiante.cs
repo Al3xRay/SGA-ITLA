@@ -1,0 +1,8 @@
+﻿namespace SGA.Domain.Entidades.Personas;
+
+public class Estudiante : Persona
+{
+    public string Matricula { get; set; } = string.Empty;
+    public string Carrera { get; set; } = string.Empty;
+    public DateTime FechaIngreso { get; set; }
+}

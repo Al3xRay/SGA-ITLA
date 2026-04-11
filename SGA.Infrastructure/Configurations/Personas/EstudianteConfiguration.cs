@@ -1,0 +1,30 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SGA.Domain.Entidades.Personas;
+
+namespace SGA.Persistence.Configurations.Personas
+{
+    public class EstudianteConfiguration : BaseEntityConfiguration<Estudiante>
+    {
+        protected override void ConfigureEntity(EntityTypeBuilder<Estudiante> builder)
+        {
+            builder.ToTable("Estudiantes", t => t.Property(e => e.Id).HasColumnName("PersonaId"));
+
+            builder.Property(e => e.Matricula)
+                .IsRequired()
+                .HasMaxLength(20)
+                .IsUnicode(false);
+
+            builder.Property(e => e.Carrera)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder.Property(e => e.FechaIngreso)
+                .HasColumnType("date")
+                .IsRequired();
+
+            builder.HasIndex(e => e.Matricula)
+                .IsUnique();
+        }
+    }
+}

@@ -1,0 +1,24 @@
+﻿using SGA.Domain.Entidades.Configuracion;
+using SGA.Domain.Entidades.Personas;
+using SGA.Domain.Entidades.Transporte;
+
+namespace SGA.Domain.Entidades.Operaciones;
+
+public class RegistroUso
+{
+    public int Id { get; set; }
+    public int PersonaId { get; set; }              
+    public int ViajeId { get; set; }
+    public int? AutorizacionId { get; set; }
+    public DateTime FechaHora { get; set; }
+    public bool AccesoPermitido { get; set; }
+    public string? MotivoRechazo { get; set; }
+    public int TipoRegistroId { get; set; }
+    public int? ValidadoPorConductorId { get; set; } 
+
+    public Persona Persona { get; set; } = null!;   
+    public Viaje Viaje { get; set; } = null!;
+    public Autorizacion? Autorizacion { get; set; }
+    public TipoRegistro Tipo { get; set; } = null!;
+    public Conductor? ValidadoPor { get; set; }
+}

@@ -1,0 +1,8 @@
+﻿namespace SGA.Domain.Entidades.Personas;
+
+public class Administrador : Persona
+{
+    public string NivelAcceso { get; set; } = string.Empty;
+    public string AreaResponsable { get; set; } = string.Empty;
+    public DateTime FechaAsignacion { get; set; }
+}

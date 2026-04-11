@@ -1,0 +1,35 @@
+@using SGA.Web.Models.Operaciones
+@model IncidenciaDto
+@{ ViewData["Title"] = "Incidencia #" + Model.Id; }
+
+<div class="row">
+    <div class="col-lg-7">
+        <div class="content-card">
+            <div class="content-card-header">
+                <h5>Incidencia #@Model.Id — @Model.TipoIncidenciaNombre</h5>
+                <span class="badge-status @(Model.EstadoIncidenciaNombre == "Resuelta" ? "badge-activo" : "badge-pendiente")">@Model.EstadoIncidenciaNombre</span>
+            </div>
+            <div class="content-card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4 text-muted small">Viaje</dt><dd class="col-sm-8">#@Model.ViajeId</dd>
+                    <dt class="col-sm-4 text-muted small">Descripción</dt><dd class="col-sm-8">@Model.Descripcion</dd>
+                    <dt class="col-sm-4 text-muted small">Reportado por</dt><dd class="col-sm-8">@Model.ReportadoPorNombre</dd>
+                    <dt class="col-sm-4 text-muted small">Fecha Reporte</dt><dd class="col-sm-8">@Model.FechaReporte.ToString("dd/MM/yyyy HH:mm")</dd>
+                    <dt class="col-sm-4 text-muted small">¿Es Grave?</dt><dd class="col-sm-8">@(Model.EsGrave ? "⚠️ SÍ" : "No")</dd>
+                    @if (!string.IsNullOrEmpty(Model.Resolucion))
+                    {
+                        <dt class="col-sm-4 text-muted small">Resolución</dt><dd class="col-sm-8 text-success">@Model.Resolucion</dd>
+                        <dt class="col-sm-4 text-muted small">Fecha Resolución</dt><dd class="col-sm-8">@Model.FechaResolucion?.ToString("dd/MM/yyyy HH:mm")</dd>
+                    }
+                </dl>
+            </div>
+        </div>
+        <div class="d-flex gap-2 mt-3">
+            @if (Model.EstadoIncidenciaNombre != "Resuelta")
+            {
+                <a asp-action="Resolver" asp-route-id="@Model.Id" class="btn btn-primary">Resolver</a>
+            }
+            <a asp-action="Index" class="btn btn-outline-secondary">Volver</a>
+        </div>
+    </div>
+</div>

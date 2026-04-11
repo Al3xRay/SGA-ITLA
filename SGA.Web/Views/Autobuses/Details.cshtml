@@ -1,0 +1,61 @@
+@using SGA.Web.Models.Transporte
+@model AutobusDto
+@{ ViewData["Title"] = "Detalle — " + Model.Placa; }
+
+<div class="page-header">
+    <div class="page-header-title">
+        <h2>@Model.Placa</h2>
+        <p>Información detallada del vehículo</p>
+    </div>
+    <div class="page-header-actions">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary" id="btn-edit-autobus">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:0.3rem;">
+                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+            Editar
+        </a>
+        <a asp-action="Index" class="btn btn-outline-secondary">Volver</a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-6">
+        <div class="content-card">
+            <div class="content-card-header">
+                <h5>Información del Vehículo</h5>
+                <span class="badge-status @(Model.Activo ? "badge-activo" : "badge-inactivo")">
+                    @(Model.Activo ? "Activo" : "Inactivo")
+                </span>
+            </div>
+            <div class="content-card-body">
+                <div style="display:flex;flex-direction:column;gap:0.875rem;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:0.875rem;border-bottom:1px solid var(--border-color);">
+                        <span style="font-size:0.8125rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Placa</span>
+                        <span style="font-size:1.125rem;font-weight:800;color:var(--text-primary);letter-spacing:0.05em;">@Model.Placa</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:0.875rem;border-bottom:1px solid var(--border-color);">
+                        <span style="font-size:0.8125rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Marca</span>
+                        <span style="font-weight:500;color:var(--text-primary);">@Model.Marca</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:0.875rem;border-bottom:1px solid var(--border-color);">
+                        <span style="font-size:0.8125rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Modelo</span>
+                        <span style="font-weight:500;color:var(--text-primary);">@Model.Modelo</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:0.875rem;border-bottom:1px solid var(--border-color);">
+                        <span style="font-size:0.8125rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Capacidad</span>
+                        <span class="badge-status badge-info-pill">@Model.Capacidad pasajeros</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:0.875rem;border-bottom:1px solid var(--border-color);">
+                        <span style="font-size:0.8125rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Estado</span>
+                        <span class="badge-status badge-pendiente">@Model.EstadoAutobusNombre</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <span style="font-size:0.8125rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Registrado</span>
+                        <span style="color:var(--text-secondary);">@Model.FechaCreacion.ToString("dd/MM/yyyy")</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,163 @@
+@using SGA.Web.ViewModels.Rutas
+@model RutaFormViewModel
+@{ ViewData["Title"] = "Editar Ruta"; }
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="form-card">
+            <div class="form-card-header"><h5>Editar Ruta</h5></div>
+            <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+                <div class="form-card-body">
+                    <div asp-validation-summary="All" class="alert alert-danger alert-sm"></div>
+                    <div class="row g-3">
+                        <div class="col-12"><label asp-for="Nombre" class="form-label"></label><input asp-for="Nombre" class="form-control" /><span asp-validation-for="Nombre" class="text-danger small"></span></div>
+                        <div class="col-12"><label asp-for="Descripcion" class="form-label"></label><textarea asp-for="Descripcion" class="form-control" rows="2"></textarea></div>
+                        <div class="col-md-6"><label asp-for="Origen" class="form-label"></label><input asp-for="Origen" class="form-control" /></div>
+                        <div class="col-md-6"><label asp-for="Destino" class="form-label"></label><input asp-for="Destino" class="form-control" /></div>
+                        <div class="col-md-6"><label asp-for="DuracionEstimadaStr" class="form-label"></label><input asp-for="DuracionEstimadaStr" class="form-control" /></div>
+                    </div>
+                </div>
+                <div class="form-card-footer">
+                    <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios Principales</button>
+                </div>
+            </form>
+        </div>
+        <div class="form-card mt-4 shadow-sm border-0 rounded-4">
+            <div class="form-card-header bg-secondary text-white rounded-top-4 p-3 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 fw-bold"><i class="bi bi-geo-alt me-2"></i>Gestión de Paradas (Ruta #@Model.Id)</h5>
+                <button type="button" class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#paradaModal">
+                    <i class="bi bi-plus-circle me-1"></i>Añadir Parada
+                </button>
+            </div>
+            <div class="form-card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0" id="tablaParadas">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Orden</th>
+                                <th>Nombre</th>
+                                <th>Ubicación</th>
+                                <th>Tiempo (hh:mm:ss)</th>
+                                <th class="text-end">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td colspan="5" class="text-center text-muted py-3">Cargando paradas...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="paradaModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Añadir Parada</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formParada">
+                    <input type="hidden" id="paradaRutaId" value="@Model.Id" />
+                    <div class="mb-3">
+                        <label class="form-label">Nombre de Parada</label>
+                        <input type="text" id="paradaNombre" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Referencia de Ubicación</label>
+                        <input type="text" id="paradaUbi" class="form-control" required />
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label class="form-label">Nro. de Orden</label>
+                            <input type="number" id="paradaOrden" class="form-control" required />
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label class="form-label">T. Desde Origen (hh:mm:ss)</label>
+                            <input type="text" id="paradaTiempo" class="form-control" placeholder="00:15:00" required />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="guardarParada()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const rutaId = document.getElementById("paradaRutaId").value;
+        const tbody = document.querySelector("#tablaParadas tbody");
+        const modalEl = document.getElementById("paradaModal");
+        const modalObj = new bootstrap.Modal(modalEl);
+
+        function cargarParadas() {
+            fetch(`/paradas/ruta/${rutaId}`)
+                .then(r => r.json())
+                .then(data => {
+                    tbody.innerHTML = "";
+                    if (!data || data.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-3">No hay paradas registradas.</td></tr>`;
+                        return;
+                    }
+                    data.sort((a,b) => a.orden - b.orden).forEach(p => {
+                        const tr = document.createElement("tr");
+                        tr.innerHTML = `
+                            <td><span class="badge bg-secondary">${p.orden}</span></td>
+                            <td class="fw-bold">${p.nombre}</td>
+                            <td><small class="text-muted"><i class="bi bi-geo"></i> ${p.ubicacion}</small></td>
+                            <td>${p.tiempoDesdeOrigen}</td>
+                            <td class="text-end">
+                                <button class="btn btn-sm btn-outline-danger" onclick="eliminarParada(${p.id})">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }).catch(err => console.error(err));
+        }
+
+        function guardarParada() {
+            const dto = {
+                rutaId: parseInt(rutaId),
+                nombre: document.getElementById("paradaNombre").value,
+                ubicacion: document.getElementById("paradaUbi").value,
+                orden: parseInt(document.getElementById("paradaOrden").value),
+                tiempoDesdeOrigen: document.getElementById("paradaTiempo").value
+            };
+
+            fetch("/paradas", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dto)
+            }).then(r => {
+                if(r.ok) {
+                    modalObj.hide();
+                    document.getElementById("formParada").reset();
+                    cargarParadas();
+                } else {
+                    alert("Error al guardar la parada. Verifique el formato de tiempo hh:mm:ss");
+                }
+            });
+        }
+
+        function eliminarParada(id) {
+            if(confirm("¿Seguro que desea eliminar esta parada?")) {
+                fetch(`/paradas/${id}`, { method: "DELETE" })
+                    .then(r => {
+                        if(r.ok) cargarParadas();
+                        else alert("Error al eliminar");
+                    });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", cargarParadas);
+    </script>
+}

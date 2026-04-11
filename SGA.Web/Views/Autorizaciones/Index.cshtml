@@ -1,0 +1,106 @@
+@using SGA.Web.ViewModels.Autorizaciones
+@model AutorizacionListViewModel
+@{ ViewData["Title"] = "Autorizaciones"; }
+
+<div class="page-header">
+    <div class="page-header-title">
+        <h2>Gestión de Autorizaciones</h2>
+        <p>Tickets mensuales y tarjetas de saldo emitidos</p>
+    </div>
+    <div class="page-header-actions">
+        <a asp-action="Create" class="btn btn-primary" id="btn-emitir-autorizacion">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Emitir Autorización
+        </a>
+    </div>
+</div>
+
+<div class="table-container">
+    @if (!Model.Autorizaciones.Any())
+    {
+        <div class="empty-state">
+            <div class="empty-state-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+                </svg>
+            </div>
+            <h6>Sin autorizaciones emitidas</h6>
+            <p>Emite tickets o tarjetas de saldo para que los usuarios puedan acceder al transporte.</p>
+            <a asp-action="Create" class="btn btn-primary btn-sm">Emitir primera autorización</a>
+        </div>
+    }
+    else
+    {
+        <div class="table-header">
+            <h5>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:0.4rem;color:var(--primary-mid);">
+                    <rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+                </svg>
+                @Model.Autorizaciones.Count() autorizaciones
+            </h5>
+            <span style="font-size:0.8rem;color:var(--text-muted);">
+                Vigentes: <strong style="color:var(--success);">@Model.Autorizaciones.Count(a => a.Activo && a.FechaVencimiento >= DateTime.Today)</strong>
+            </span>
+        </div>
+        <div class="table-responsive">
+            <table class="table" id="autorizacionesTable">
+                <thead>
+                    <tr>
+                        <th>Titular</th>
+                        <th>Tipo</th>
+                        <th>Saldo</th>
+                        <th>Viajes Rest.</th>
+                        <th>Vencimiento</th>
+                        <th>Estado</th>
+                        <th style="text-align:right;padding-right:1.5rem;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Autorizaciones)
+                    {
+                        var vencida = item.FechaVencimiento < DateTime.Today;
+                        var vigente = item.Activo && !vencida;
+                        var diasRestantes = (item.FechaVencimiento - DateTime.Today).TotalDays;
+                        <tr>
+                            <td style="font-weight:600;color:var(--text-primary);">@item.PersonaNombre</td>
+                            <td>
+                                <span class="badge-status badge-info-pill">@item.TipoAutorizacionNombre</span>
+                            </td>
+                            <td style="font-weight:700;color:var(--text-primary);">
+                                RD$ @item.Saldo.ToString("N2")
+                            </td>
+                            <td style="font-weight:600;">@(item.ViajesRestantes?.ToString() ?? "—")</td>
+                            <td style="color:@(vencida ? "var(--danger)" : diasRestantes <= 7 ? "var(--warning)" : "var(--text-secondary)");font-weight:@(vencida || diasRestantes <= 7 ? "700" : "400");">
+                                @item.FechaVencimiento.ToString("dd/MM/yyyy")
+                                @if (vigente && diasRestantes <= 7)
+                                {
+                                    <span style="font-size:0.7rem;margin-left:0.3rem;">(@((int)diasRestantes)d)</span>
+                                }
+                            </td>
+                            <td>
+                                <span class="badge-status @(vigente ? "badge-activo" : "badge-inactivo")">
+                                    @(vigente ? "Vigente" : vencida ? "Vencida" : "Inactiva")
+                                </span>
+                            </td>
+                            <td style="text-align:right;padding-right:1.25rem;">
+                                <div style="display:flex;gap:0.375rem;justify-content:flex-end;">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn-action btn-action-view" title="Ver detalles">
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    </a>
+                                    <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline"
+                                          onsubmit="return confirm('¿Eliminar esta autorización?')">
+                                        <button type="submit" class="btn-action btn-action-danger" title="Eliminar">
+                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

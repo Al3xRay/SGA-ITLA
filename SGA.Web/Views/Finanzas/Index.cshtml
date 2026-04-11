@@ -1,0 +1,144 @@
+@using SGA.Web.Models.Operaciones
+@model List<TransaccionFinancieraDto>
+@{
+    ViewData["Title"] = "Finanzas";
+    var totalIngresos = Model.Where(x => x.Tipo == "Ingreso").Sum(x => x.Monto);
+    var totalGastos   = Model.Where(x => x.Tipo == "Gasto").Sum(x => x.Monto);
+    var saldoNeto     = totalIngresos - totalGastos;
+}
+
+<div class="page-header">
+    <div class="page-header-title">
+        <h2>Centro Financiero</h2>
+        <p>Ingresos, gastos y conciliación del servicio de transporte</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary" id="btn-nuevo-movimiento">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        Registrar Movimiento
+    </a>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="stat-card stat-success">
+            <div class="stat-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+                </svg>
+            </div>
+            <div class="stat-info-content">
+                <span class="stat-label">Total Ingresos</span>
+                <span class="stat-value">RD$ @totalIngresos.ToString("N2")</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card stat-danger">
+            <div class="stat-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/>
+                </svg>
+            </div>
+            <div class="stat-info-content">
+                <span class="stat-label">Total Gastos</span>
+                <span class="stat-value">RD$ @totalGastos.ToString("N2")</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card @(saldoNeto >= 0 ? "stat-primary" : "stat-danger")">
+            <div class="stat-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23"/>
+                    <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                </svg>
+            </div>
+            <div class="stat-info-content">
+                <span class="stat-label">Saldo Neto en Caja</span>
+                <span class="stat-value" style="color:@(saldoNeto >= 0 ? "var(--success)" : "var(--danger)");">
+                    @(saldoNeto >= 0 ? "+" : "")RD$ @saldoNeto.ToString("N2")
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-container">
+    <div class="table-header">
+        <h5>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:0.4rem;color:var(--primary-mid);">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+            </svg>
+            Historial de Transacciones
+        </h5>
+        <div style="position:relative;">
+            <input type="text" id="searchInput" class="form-control"
+                   placeholder="Buscar concepto..."
+                   style="padding-left:2.25rem;min-width:200px;" />
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 style="position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);color:var(--text-muted);">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="empty-state">
+            <div class="empty-state-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                </svg>
+            </div>
+            <h6>Sin transacciones registradas</h6>
+            <p>Los movimientos financieros del servicio de transporte aparecerán aquí.</p>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table" id="finanzasTable">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Tipo</th>
+                        <th>Concepto</th>
+                        <th style="text-align:right;padding-right:1.5rem;">Monto (RD$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderByDescending(x => x.Fecha))
+                    {
+                        <tr>
+                            <td style="color:var(--text-secondary);white-space:nowrap;">@item.Fecha.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>
+                                <span class="badge-status @(item.Tipo == "Ingreso" ? "badge-activo" : "badge-inactivo")">
+                                    @item.Tipo
+                                </span>
+                            </td>
+                            <td style="font-weight:500;" class="searchable">@item.Concepto</td>
+                            <td style="text-align:right;padding-right:1.25rem;font-weight:700;font-size:0.9375rem;color:@(item.Tipo == "Ingreso" ? "var(--success)" : "var(--danger)");">
+                                @(item.Tipo == "Ingreso" ? "+" : "−") @item.Monto.ToString("N2")
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById("searchInput")?.addEventListener("keyup", function () {
+            const f = this.value.toLowerCase();
+            document.querySelectorAll("#finanzasTable tbody tr").forEach(r => {
+                const cell = r.querySelector(".searchable");
+                r.style.display = cell?.innerText.toLowerCase().includes(f) ? "" : "none";
+            });
+        });
+    </script>
+}

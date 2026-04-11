@@ -1,0 +1,366 @@
+@using SGA.Web.ViewModels.Autorizaciones
+@model AutorizacionFormViewModel
+@{ ViewData["Title"] = "Emitir Autorización"; }
+
+<div class="page-header">
+    <div class="page-header-title">
+        <h2>Emitir Autorización</h2>
+        <p>Genera un ticket mensual o recarga de saldo para un usuario del sistema</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-secondary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:0.3rem;">
+            <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+        </svg>
+        Volver
+    </a>
+</div>
+
+<div class="row g-4 justify-content-center">
+    <div class="col-lg-7">
+        <form asp-action="Create" method="post" id="autorizacionForm">
+            <div class="form-card mb-3">
+                <div class="form-card-header">
+                    <div class="icon-badge icon-badge-primary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <h5>1 — Seleccionar Usuario</h5>
+                </div>
+                <div class="form-card-body">
+                    <div asp-validation-summary="All" class="alert alert-danger alert-sm" style="display:@(ViewData.ModelState.ErrorCount > 0 ? "block" : "none")"></div>
+
+                    <label class="form-label">Buscar Estudiante / Empleado</label>
+                    <div style="position:relative;">
+                        <div style="position:relative;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 style="position:absolute;left:0.875rem;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none;">
+                                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            <input type="text" id="personaSearch" class="form-control"
+                                   placeholder="Escribe nombre, apellido o matrícula..."
+                                   autocomplete="off"
+                                   style="padding-left:2.5rem;" />
+                        </div>
+                        <input type="hidden" asp-for="PersonaId" id="personaIdHidden" />
+                        <span asp-validation-for="PersonaId" class="text-danger" style="font-size:0.8rem;"></span>
+                        <ul id="searchResults" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:1050; background:var(--bg-card);border:1.5px solid var(--border-color); border-radius:var(--radius-sm);box-shadow:var(--shadow-md); max-height:220px;overflow-y:auto;padding:0;margin:0;list-style:none;">
+                        </ul>
+                    </div>
+
+                    <div id="personaPreview" style="display:none;margin-top:0.875rem;padding:0.875rem 1rem;
+                         background:var(--primary-bg);border:1.5px solid rgba(30,58,138,0.2);
+                         border-radius:var(--radius-sm);display:none;align-items:center;gap:0.875rem;">
+                        <div class="avatar" id="previewAvatar" style="flex-shrink:0;"></div>
+                        <div>
+                            <div style="font-weight:700;color:var(--text-primary);" id="previewNombre">—</div>
+                            <div style="font-size:0.8rem;color:var(--text-muted);" id="previewDoc">—</div>
+                        </div>
+                        <button type="button" onclick="clearPersona()"
+                                style="margin-left:auto;background:none;border:none;color:var(--text-muted);cursor:pointer;padding:0.25rem;" title="Limpiar selección">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-card mb-3">
+                <div class="form-card-header">
+                    <div class="icon-badge icon-badge-info">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+                        </svg>
+                    </div>
+                    <h5>2 — Tipo de Autorización</h5>
+                </div>
+                <div class="form-card-body">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.25rem;" id="tipoSelector">
+                        <label class="tipo-option" id="opt-mensual">
+                            <input type="radio" name="tipoAutorizacionRadio" value="1" style="display:none;" />
+                            <div class="tipo-card" id="card-mensual">
+                                <div style="width:40px;height:40px;border-radius:var(--radius-sm);background:var(--success-bg);display:flex;align-items:center;justify-content:center;color:var(--success);margin-bottom:0.625rem;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                        <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                                    </svg>
+                                </div>
+                                <div style="font-weight:700;font-size:0.9375rem;color:var(--text-primary);">Pase Mensual</div>
+                                <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.2rem;">Acceso ilimitado por 30 días</div>
+                            </div>
+                        </label>
+                        <label class="tipo-option" id="opt-saldo">
+                            <input type="radio" name="tipoAutorizacionRadio" value="2" style="display:none;" />
+                            <div class="tipo-card" id="card-saldo">
+                                <div style="width:40px;height:40px;border-radius:var(--radius-sm);background:var(--info-bg);display:flex;align-items:center;justify-content:center;color:var(--info);margin-bottom:0.625rem;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="12" y1="1" x2="12" y2="23"/>
+                                        <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                                    </svg>
+                                </div>
+                                <div style="font-weight:700;font-size:0.9375rem;color:var(--text-primary);">Tarjeta de Saldo</div>
+                                <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.2rem;">RD$25 descontados por viaje</div>
+                            </div>
+                        </label>
+                    </div>
+                    <input type="hidden" asp-for="TipoAutorizacionId" id="tipoAutorizacion" />
+                    <span asp-validation-for="TipoAutorizacionId" class="text-danger" style="font-size:0.8rem;"></span>
+                    <div id="seccionSaldo" style="display:none;">
+                        <div class="form-section-label">Configuración de Saldo</div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="Saldo" class="form-label">Monto a Recargar (RD$)</label>
+                                <div style="position:relative;">
+                                    <span style="position:absolute;left:0.875rem;top:50%;transform:translateY(-50%);font-weight:700;font-size:0.875rem;color:var(--text-muted);">RD$</span>
+                                    <input asp-for="Saldo" class="form-control" type="number" step="25" min="25" style="padding-left:2.75rem;" placeholder="0.00" />
+                                </div>
+                                <small style="font-size:0.75rem;color:var(--text-muted);margin-top:0.25rem;display:block;">
+                                    Mínimo: RD$25 · Cada viaje descuenta RD$25
+                                </small>
+                            </div>
+                            <div class="col-md-6" id="viajes-proyectados-wrap" style="display:none;">
+                                <label class="form-label">Viajes Proyectados</label>
+                                <div style="padding:0.6rem 0.875rem;background:var(--bg-subtle);border:1.5px solid var(--border-color);border-radius:var(--radius-sm);font-weight:700;font-size:1.25rem;color:var(--primary-mid);" id="viajesProyectados">—</div>
+                                <small style="font-size:0.75rem;color:var(--text-muted);">viajes disponibles con este saldo</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="infoVigencia" style="display:none;">
+                        <div class="alert alert-info alert-sm" style="margin-top:0;display:flex;align-items:flex-start;gap:0.625rem;">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:0.05rem;">
+                                <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+                            </svg>
+                            <span>La vigencia del pase mensual se establece automáticamente por <strong>30 días</strong> desde la fecha de emisión.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-card mb-3" id="seccionEfectivo" style="display:none;">
+                <div class="form-card-header">
+                    <div class="icon-badge icon-badge-success">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="1" x2="12" y2="23"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                        </svg>
+                    </div>
+                    <h5>3 — Registro de Cobro</h5>
+                </div>
+                <div class="form-card-body">
+                    <label asp-for="MontoCobrado" class="form-label">
+                        Total Cobrado al Usuario <span style="color:var(--text-muted);font-weight:400;">(para registro en Finanzas)</span>
+                    </label>
+                    <div style="position:relative;">
+                        <span style="position:absolute;left:0.875rem;top:50%;transform:translateY(-50%);font-weight:700;font-size:0.875rem;color:var(--success);">RD$</span>
+                        <input asp-for="MontoCobrado" class="form-control" type="number" step="0.01" min="0" placeholder="0.00" style="padding-left:2.75rem;" />
+                    </div>
+                    <small style="font-size:0.75rem;color:var(--text-muted);display:block;margin-top:0.3rem;">
+                        Si fue cortesía o no se cobró efectivo, coloca 0.
+                    </small>
+                    <span asp-validation-for="MontoCobrado" class="text-danger" style="font-size:0.8rem;"></span>
+                </div>
+            </div>
+
+            <div style="display:flex;gap:0.75rem;justify-content:flex-end;">
+                <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary" id="btn-emitir">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    Emitir Autorización
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .tipo-card {
+        padding: 1rem;
+        border: 1.5px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: all var(--transition);
+        background: var(--bg-subtle);
+    }
+    .tipo-card:hover { border-color: var(--border-strong); background: var(--bg-card); }
+    .tipo-card.selected {
+        border-color: var(--primary-mid);
+        background: var(--primary-bg);
+        box-shadow: 0 0 0 3px var(--primary-bg);
+    }
+    .tipo-option { display:block; cursor:pointer; }
+    #searchResults li {
+        padding: 0.75rem 1rem;
+        cursor: pointer;
+        border-bottom: 1px solid var(--border-color);
+        transition: background var(--transition);
+        font-size: 0.875rem;
+    }
+    #searchResults li:last-child { border-bottom: none; }
+    #searchResults li:hover { background: var(--primary-bg); color: var(--primary-dark); }
+</style>
+
+@section Scripts {
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const inputSearch  = document.getElementById("personaSearch");
+        const hiddenId     = document.getElementById("personaIdHidden");
+        const resultsList  = document.getElementById("searchResults");
+        const hiddenTipo   = document.getElementById("tipoAutorizacion");
+        const secSaldo     = document.getElementById("seccionSaldo");
+        const secEfectivo  = document.getElementById("seccionEfectivo");
+        const secVigencia  = document.getElementById("infoVigencia");
+        const viajesWrap   = document.getElementById("viajes-proyectados-wrap");
+        const viajesEl     = document.getElementById("viajesProyectados");
+        const saldoInput   = document.querySelector("input[name='Saldo']");
+        const preview      = document.getElementById("personaPreview");
+        const previewNombre= document.getElementById("previewNombre");
+        const previewDoc   = document.getElementById("previewDoc");
+        const previewAvatar= document.getElementById("previewAvatar");
+        const form         = document.getElementById("autorizacionForm");
+
+        let timeoutId;
+        inputSearch.addEventListener("input", e => {
+            clearTimeout(timeoutId);
+            const q = e.target.value.trim();
+            if (q.length < 2) { resultsList.style.display = "none"; return; }
+            timeoutId = setTimeout(() => {
+                fetch(`/Personas/Buscar?query=${encodeURIComponent(q)}`)
+                    .then(r => r.json())
+                    .then(data => {
+                        resultsList.innerHTML = "";
+                        if (!data || !data.length) {
+                            resultsList.innerHTML = `<li style="color:var(--text-muted);font-style:italic;">Sin resultados para "${q}"</li>`;
+                        } else {
+                            data.forEach(u => {
+                                const li = document.createElement("li");
+                                const n = u.nombre || u.Nombre || '';
+                                const a = u.apellido || u.Apellido || '';
+                                const d = u.documentoIdentidad || u.DocumentoIdentidad || '';
+                                const t = u.tipoPersonaNombre || u.TipoPersonaNombre || '';
+                                const id = u.id || u.Id;
+
+                                const initials = ((n[0] || '') + (a[0] || '')).toUpperCase();
+                                li.innerHTML = `
+                                    <div style="display:flex;align-items:center;gap:0.75rem;">
+                                        <div style="width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,#2563eb,#1e3a8a);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.75rem;flex-shrink:0;">${initials}</div>
+                                        <div><div style="font-weight:600;">${n} ${a}</div><div style="font-size:0.75rem;color:var(--text-muted);">${t} · ${d}</div></div>
+                                    </div>`;
+                                li.addEventListener("click", () => {
+                                    inputSearch.value = `${n} ${a}`;
+                                    hiddenId.value = id;
+                                    resultsList.style.display = "none";
+                                    previewNombre.textContent = `${n} ${a}`;
+                                    previewDoc.textContent = `${t} · ${d}`;
+                                    previewAvatar.textContent = initials;
+                                    preview.style.display = "flex";
+                                    inputSearch.style.display = "none";
+                                });
+                                resultsList.appendChild(li);
+                            });
+                        }
+                        resultsList.style.display = "block";
+                    })
+                    .catch(() => {});
+            }, 300);
+        });
+
+        document.addEventListener("click", e => {
+            if (!inputSearch.contains(e.target) && !resultsList.contains(e.target))
+                resultsList.style.display = "none";
+        });
+
+        document.querySelectorAll(".tipo-option input").forEach(radio => {
+            radio.closest(".tipo-option").querySelector(".tipo-card").addEventListener("click", function () {
+                document.querySelectorAll(".tipo-card").forEach(c => c.classList.remove("selected"));
+                this.classList.add("selected");
+                hiddenTipo.value = radio.value;
+                updateFormUI(radio.value);
+            });
+        });
+
+        function updateFormUI(tipo) {
+            secSaldo.style.display    = tipo === "2" ? "block" : "none";
+            secEfectivo.style.display = (tipo === "1" || tipo === "2") ? "flex" : "none";
+            secVigencia.style.display = tipo === "1" ? "block" : "none";
+
+            if (tipo === "1") {
+                if(saldoInput) {
+                    saldoInput.removeAttribute("min");
+                    saldoInput.removeAttribute("required");
+                    saldoInput.value = "0";
+                }
+            } else {
+                if(saldoInput) {
+                    saldoInput.setAttribute("min", "25");
+                    if (saldoInput.value === "0") saldoInput.value = "";
+                }
+            }
+        }
+
+        saldoInput?.addEventListener("input", () => {
+            const monto = parseFloat(saldoInput.value) || 0;
+            const viajes = Math.floor(monto / 25);
+            viajesEl.textContent = viajes > 0 ? viajes : "—";
+            viajesWrap.style.display = monto >= 25 ? "block" : "none";
+        });
+
+        function showNotification(message) {
+            let toast = document.getElementById("validation-toast");
+            if (!toast) {
+                toast = document.createElement("div");
+                toast.id = "validation-toast";
+                toast.style.cssText = "position:fixed;top:20px;right:20px;background:var(--danger);color:white;padding:12px 20px;border-radius:var(--radius-sm);box-shadow:var(--shadow-md);z-index:9999;font-weight:600;opacity:0;transform:translateY(-20px);transition:all 0.3s ease;pointer-events:none;font-size:0.875rem;";
+                document.body.appendChild(toast);
+            }
+            toast.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:8px;vertical-align:text-bottom;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>` + message;
+            toast.style.opacity = "1";
+            toast.style.transform = "translateY(0)";
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                toast.style.transform = "translateY(-20px)";
+            }, 3000);
+        }
+
+        form.addEventListener("submit", e => {
+            if (!hiddenId.value || hiddenId.value == "0") {
+                e.preventDefault();
+                inputSearch.style.borderColor = "var(--danger)";
+                inputSearch.focus();
+                showNotification("Debes seleccionar un usuario antes de emitir la autorización.");
+                return;
+            }
+            if (!hiddenTipo.value || hiddenTipo.value == "0") {
+                e.preventDefault();
+                showNotification("Debes seleccionar el tipo de autorización.");
+                return;
+            }
+        });
+
+        if (hiddenTipo.value) {
+            const card = document.querySelector(`.tipo-option input[value="${hiddenTipo.value}"]`);
+            if (card) {
+                card.closest(".tipo-option").querySelector(".tipo-card").classList.add("selected");
+                updateFormUI(hiddenTipo.value);
+            }
+        }
+        if (hiddenId.value && hiddenId.value != "0") {
+            inputSearch.value = "Usuario ID: " + hiddenId.value;
+            previewNombre.textContent = "Usuario ID: " + hiddenId.value;
+            previewDoc.textContent = "—";
+            previewAvatar.textContent = "U";
+            preview.style.display = "flex";
+            inputSearch.style.display = "none";
+        }
+    });
+
+    function clearPersona() {
+        document.getElementById("personaIdHidden").value = "";
+        document.getElementById("personaPreview").style.display = "none";
+        const input = document.getElementById("personaSearch");
+        input.value = "";
+        input.style.display = "block";
+        input.focus();
+    }
+    </script>
+}

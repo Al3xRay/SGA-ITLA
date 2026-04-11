@@ -1,0 +1,36 @@
+@using SGA.Web.ViewModels.RegistrosUso
+@model RegistroUsoListViewModel
+@{ ViewData["Title"] = "Registros de Uso"; }
+
+<div class="table-container">
+    <div class="table-header"><h5>Historial de Registros de Uso</h5></div>
+    @if (!Model.Registros.Any())
+    {
+        <div class="empty-state"><p>No hay registros de uso.</p></div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table">
+                <thead><tr><th>Persona</th><th>Viaje</th><th>Fecha/Hora</th><th>Tipo</th><th>Resultado</th><th>Motivo Rechazo</th></tr></thead>
+                <tbody>
+                    @foreach (var item in Model.Registros)
+                    {
+                        <tr>
+                            <td><strong>@item.PersonaNombre</strong></td>
+                            <td>#@item.ViajeId</td>
+                            <td>@item.FechaHora.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>@item.TipoRegistroNombre</td>
+                            <td>
+                                <span class="badge-status @(item.AccesoPermitido ? "badge-activo" : "badge-inactivo")">
+                                    @(item.AccesoPermitido ? "✓ Permitido" : "✗ Denegado")
+                                </span>
+                            </td>
+                            <td class="text-danger small">@(item.MotivoRechazo ?? "—")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

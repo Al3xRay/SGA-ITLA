@@ -1,0 +1,27 @@
+@using SGA.Web.Models.Operaciones
+@model AutorizacionDto
+@{ ViewData["Title"] = "Detalle — Autorización #" + Model.Id; }
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="content-card mb-3">
+            <div class="content-card-header">
+                <h5>Autorización #@Model.Id</h5>
+                <span class="badge-status @(Model.Activo && Model.FechaVencimiento >= DateTime.Today ? "badge-activo" : "badge-inactivo")">
+                    @(Model.Activo && Model.FechaVencimiento >= DateTime.Today ? "Vigente" : "Inactiva")
+                </span>
+            </div>
+            <div class="content-card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-5 text-muted small">Persona</dt><dd class="col-sm-7 fw-semibold">@Model.PersonaNombre</dd>
+                    <dt class="col-sm-5 text-muted small">Tipo</dt><dd class="col-sm-7">@Model.TipoAutorizacionNombre</dd>
+                    <dt class="col-sm-5 text-muted small">Saldo</dt><dd class="col-sm-7">RD$ @Model.Saldo.ToString("N2")</dd>
+                    <dt class="col-sm-5 text-muted small">Viajes Restantes</dt><dd class="col-sm-7">@(Model.ViajesRestantes?.ToString() ?? "Ilimitado")</dd>
+                    <dt class="col-sm-5 text-muted small">Emitida</dt><dd class="col-sm-7">@Model.FechaEmision.ToString("dd/MM/yyyy")</dd>
+                    <dt class="col-sm-5 text-muted small">Vence</dt><dd class="col-sm-7 @(Model.FechaVencimiento < DateTime.Today ? "text-danger fw-bold" : "")">@Model.FechaVencimiento.ToString("dd/MM/yyyy")</dd>
+                </dl>
+            </div>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-secondary">Volver</a>
+    </div>
+</div>

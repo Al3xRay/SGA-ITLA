@@ -1,0 +1,48 @@
+@using SGA.Web.ViewModels.Conductores
+@model ConductorFormViewModel
+@{ ViewData["Title"] = "Editar Conductor"; }
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="form-card">
+            <div class="form-card-header"><h5>Editar Conductor</h5></div>
+            <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+                <div class="form-card-body">
+                    <div asp-validation-summary="All" class="alert alert-danger alert-sm"></div>
+                    <div class="row g-3">
+                        <div class="col-md-6"><label asp-for="Nombre" class="form-label"></label><input asp-for="Nombre" class="form-control" /></div>
+                        <div class="col-md-6"><label asp-for="Apellido" class="form-label"></label><input asp-for="Apellido" class="form-control" /></div>
+                        
+                        <div class="col-md-6">
+                            <label asp-for="DocumentoIdentidad" class="form-label"></label>
+                            <input asp-for="DocumentoIdentidad" class="form-control" readonly style="opacity:0.7;" />
+                        </div>
+                        <div class="col-md-6"><label asp-for="Telefono" class="form-label"></label><input asp-for="Telefono" class="form-control" /></div>
+                        
+                        <div class="col-md-6"><label asp-for="Contrasena" class="form-label"></label><input asp-for="Contrasena" class="form-control" type="text" placeholder="Dejar blanco para mantener actual" /></div>
+                        <div class="col-md-6"><label asp-for="LicenciaConducir" class="form-label"></label><input asp-for="LicenciaConducir" class="form-control" /></div>
+                        
+                        <div class="col-md-6"><label asp-for="CategoriaLicencia" class="form-label"></label><input asp-for="CategoriaLicencia" class="form-control" /></div>
+                        <div class="col-md-6"><label asp-for="FechaVencimientoLicencia" class="form-label"></label><input asp-for="FechaVencimientoLicencia" class="form-control" /></div>
+                        
+                        <div class="col-md-6"><label asp-for="FechaContratacion" class="form-label"></label><input asp-for="FechaContratacion" class="form-control" /></div>
+                        <div class="col-md-6">
+                            <label asp-for="EstadoConductorId" class="form-label">Estado</label>
+                            <select asp-for="EstadoConductorId" class="form-select">
+                                <option value="1">Activo</option>
+                                <option value="2">Inactivo</option>
+                                <option value="3">Suspendido</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12"><label asp-for="Direccion" class="form-label"></label><input asp-for="Direccion" class="form-control" /></div>
+                    </div>
+                </div>
+                <div class="form-card-footer">
+                    <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

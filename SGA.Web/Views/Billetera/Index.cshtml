@@ -1,0 +1,240 @@
+@using SGA.Web.ViewModels.Billetera
+@model BilleteraViewModel
+@{
+    ViewData["Title"] = "Mi Billetera";
+    var vigente          = Model.AutorizacionVigente;
+    var esMensual        = vigente?.TipoAutorizacionNombre?.Contains("Mensual", StringComparison.OrdinalIgnoreCase) == true;
+    var esSaldos         = vigente?.TipoAutorizacionNombre?.Contains("Saldo", StringComparison.OrdinalIgnoreCase) == true || 
+                           vigente?.TipoAutorizacionNombre?.Contains("Recargable", StringComparison.OrdinalIgnoreCase) == true;
+    var fechaFin         = vigente?.FechaVencimiento ?? DateTime.Now.AddYears(1); 
+    var diasRestantes    = (fechaFin - DateTime.Now).TotalDays;
+    var isUrgent         = esMensual && diasRestantes <= 7;
+    var saldoActual      = vigente?.Saldo ?? 0;
+    var viajesProyectados = (int)Math.Floor(saldoActual / 25);
+}
+
+<div class="page-header">
+    <div class="page-header-title">
+        <h2>Mi Billetera</h2>
+        <p>Tu estado de acceso y historial de uso del transporte</p>
+    </div>
+</div>
+
+<!-- Tarjeta Premium + KPIs -->
+<div class="row g-3 mb-4">
+
+    <!-- Tarjeta Virtual -->
+    <div class="col-lg-5">
+        <div class="wallet-card @(vigente == null ? "wallet-card-inactive" : esMensual ? "wallet-card-mensual" : "wallet-card-saldo")">
+            <!-- Patrón de fondo -->
+            <div class="wallet-card-pattern" aria-hidden="true">
+                <svg viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice">
+                    <circle cx="350" cy="-20" r="130" fill="white" opacity="0.05"/>
+                    <circle cx="380" cy="200" r="100" fill="white" opacity="0.04"/>
+                    <circle cx="-20" cy="180" r="80" fill="white" opacity="0.04"/>
+                </svg>
+            </div>
+            <div class="wallet-card-body">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:auto;">
+                    <span style="font-size:0.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;opacity:0.7;">
+                        @(vigente != null ? vigente.TipoAutorizacionNombre?.ToUpper() : "SIN PASE ACTIVO")
+                    </span>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.8">
+                        <rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 11h18"/>
+                        <circle cx="7" cy="19" r="1.5" fill="white" stroke="none"/>
+                        <circle cx="17" cy="19" r="1.5" fill="white" stroke="none"/>
+                    </svg>
+                </div>
+
+                @if (vigente != null)
+                {
+                    @if (esSaldos)
+                    {
+                        <div style="margin:1.25rem 0 0.25rem;">
+                            <div style="font-size:0.7rem;opacity:0.6;margin-bottom:0.15rem;">Saldo disponible</div>
+                            <div style="font-size:2.25rem;font-weight:800;letter-spacing:-0.02em;">RD$ @saldoActual.ToString("N2")</div>
+                        </div>
+                        <div style="font-size:0.8rem;opacity:0.75;">≈ @viajesProyectados viajes disponibles (RD$25 c/u)</div>
+                    }
+                    else if (esMensual)
+                    {
+                        <div style="margin:1.25rem 0 0.25rem;">
+                            <div style="font-size:0.7rem;opacity:0.6;margin-bottom:0.15rem;">Tipo de pase</div>
+                            <div style="font-size:2rem;font-weight:800;letter-spacing:-0.02em;">PASE MENSUAL</div>
+                        </div>
+                        <div style="font-size:0.8rem;opacity:0.75;">
+                            Acceso ilimitado · Vence @fechaFin.ToString("dd/MMM/yyyy").ToUpper()
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div style="margin:1.5rem 0 0.5rem;">
+                        <div style="font-size:1.5rem;font-weight:700;opacity:0.6;">— Sin acceso —</div>
+                    </div>
+                    <div style="font-size:0.8rem;opacity:0.65;">Contacta al administrador para solicitar un pase</div>
+                }
+
+                <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.2);display:flex;justify-content:space-between;align-items:center;">
+                    <div>
+                        <div style="font-size:0.6rem;opacity:0.55;text-transform:uppercase;letter-spacing:0.08em;">SGA-ITLA</div>
+                        <div style="font-size:0.75rem;font-weight:600;opacity:0.85;">Transporte Institucional</div>
+                    </div>
+                    @if (vigente != null)
+                    {
+                        <div style="text-align:right;">
+                            <div style="font-size:0.6rem;opacity:0.55;text-transform:uppercase;letter-spacing:0.08em;">Estado</div>
+                            <div style="font-size:0.8rem;font-weight:700;color:@(isUrgent ? "#ff6b6b" : "rgba(255,255,255,0.9)");">
+                                @(isUrgent ? "⚠ VENCE PRONTO" : "✓ VIGENTE")
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KPI Stats -->
+    <div class="col-lg-7">
+        <div class="row g-3 h-100">
+            @if (esMensual)
+            {
+                <div class="col-sm-6">
+                    <div class="stat-card stat-primary" style="height:100%;">
+                        <div class="stat-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info-content">
+                            <span class="stat-label">Días para Expirar</span>
+                            <span class="stat-value @(isUrgent ? "text-danger" : "")">
+                                @Math.Max(0, (int)diasRestantes) días
+                            </span>
+                            <small style="font-size:0.75rem;color:var(--text-muted);">@fechaFin.ToString("dd/MM/yyyy")</small>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (esSaldos)
+            {
+                <div class="col-sm-6">
+                    <div class="stat-card stat-success" style="height:100%;">
+                        <div class="stat-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info-content">
+                            <span class="stat-label">Viajes Proyectados</span>
+                            <span class="stat-value">@viajesProyectados</span>
+                            <small style="font-size:0.75rem;color:var(--text-muted);">base: RD$25 por viaje</small>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-sm-6">
+                <div class="stat-card @(vigente != null ? "stat-success" : "stat-danger")" style="height:100%;">
+                    <div class="stat-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-info-content">
+                        <span class="stat-label">Estado de Acceso</span>
+                        <span class="stat-value" style="font-size:1.1rem;">
+                            @(vigente != null ? "Habilitado" : "Sin Pase")
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="stat-card stat-info" style="height:100%;">
+                    <div class="stat-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                    </div>
+                    <div class="stat-info-content">
+                        <span class="stat-label">Usos Recientes</span>
+                        <span class="stat-value">@Model.HistorialViajes.Count</span>
+                        <small style="font-size:0.75rem;color:var(--text-muted);">últimos registros</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Historial de Uso -->
+<div class="content-card">
+    <div class="content-card-header">
+        <h5>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:0.4rem;color:var(--primary-mid);">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            Historial de Uso Reciente
+        </h5>
+        <span class="badge-status badge-info-pill">@Model.HistorialViajes.Count registros</span>
+    </div>
+    <div class="content-card-body" style="padding:0;">
+        @if (!Model.HistorialViajes.Any())
+        {
+            <div class="empty-state" style="padding:3rem;">
+                <div class="empty-state-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                </div>
+                <h6>Sin registros de viajes</h6>
+                <p>Tu historial de uso aparecerá aquí cuando abordes por primera vez un autobús.</p>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table" style="margin-bottom:0;">
+                    <thead>
+                        <tr>
+                            <th>Fecha y Hora</th>
+                            <th>Viaje</th>
+                            <th>Tipo de Registro</th>
+                            <th style="text-align:center;">Acceso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.HistorialViajes.OrderByDescending(h => h.FechaHora).Take(20))
+                        {
+                            <tr>
+                                <td style="color:var(--text-secondary);white-space:nowrap;">@item.FechaHora.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td style="font-weight:600;">
+                                    <span style="font-family:'Courier New',monospace;font-size:0.8125rem;">Viaje #@item.ViajeId</span>
+                                </td>
+                                <td>
+                                    <span class="badge-status badge-info-pill">@item.TipoRegistroNombre</span>
+                                </td>
+                                <td style="text-align:center;">
+                                    @if (item.AccesoPermitido)
+                                    {
+                                        <span class="badge-status badge-activo">
+                                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="margin-right:0.2rem;"><polyline points="20 6 9 17 4 12"/></svg>
+                                            Permitido
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge-status badge-inactivo" title="@item.MotivoRechazo">
+                                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="margin-right:0.2rem;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                            Denegado
+                                        </span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

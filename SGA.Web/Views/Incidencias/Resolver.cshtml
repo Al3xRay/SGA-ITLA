@@ -1,0 +1,37 @@
+@using SGA.Web.ViewModels.Incidencias
+@model IncidenciaResolverViewModel
+@{ ViewData["Title"] = "Resolver Incidencia"; }
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="content-card mb-3">
+            <div class="content-card-header"><h5>Incidencia a Resolver</h5></div>
+            <div class="content-card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4 text-muted small">Tipo</dt><dd class="col-sm-8">@Model.Incidencia.TipoIncidenciaNombre</dd>
+                    <dt class="col-sm-4 text-muted small">Viaje</dt><dd class="col-sm-8">#@Model.Incidencia.ViajeId</dd>
+                    <dt class="col-sm-4 text-muted small">Descripción</dt><dd class="col-sm-8">@Model.Incidencia.Descripcion</dd>
+                    <dt class="col-sm-4 text-muted small">Reportado por</dt><dd class="col-sm-8">@Model.Incidencia.ReportadoPorNombre</dd>
+                    <dt class="col-sm-4 text-muted small">Fecha</dt><dd class="col-sm-8">@Model.Incidencia.FechaReporte.ToString("dd/MM/yyyy HH:mm")</dd>
+                    <dt class="col-sm-4 text-muted small">Grave</dt><dd class="col-sm-8">@(Model.Incidencia.EsGrave ? "⚠️ Sí" : "No")</dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="form-card">
+            <div class="form-card-header"><h5>Ingresar Resolución</h5></div>
+            <form asp-action="Resolver" asp-route-id="@Model.Incidencia.Id" method="post">
+                <div class="form-card-body">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger alert-sm"></div>
+                    <label asp-for="Resolucion" class="form-label"></label>
+                    <textarea asp-for="Resolucion" class="form-control" rows="4" placeholder="Describa cómo se resolvió la incidencia..."></textarea>
+                    <span asp-validation-for="Resolucion" class="text-danger small"></span>
+                </div>
+                <div class="form-card-footer">
+                    <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Marcar como Resuelta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,131 @@
+@using SGA.Web.ViewModels.Conductores
+@model ConductorListViewModel
+@{ ViewData["Title"] = "Conductores"; }
+
+<div class="page-header">
+    <div class="page-header-title">
+        <h2>Panel de Conductores</h2>
+        <p>Gestión del personal de conducción institucional</p>
+    </div>
+    <div class="page-header-actions">
+        <div style="position:relative;">
+            <input type="text" id="searchInput" class="form-control"
+                   placeholder="Buscar conductor, licencia..."
+                   style="padding-left:2.25rem;min-width:220px;" />
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                 style="position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);color:var(--text-muted);">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+        </div>
+        <a asp-action="Create" class="btn btn-primary" id="btn-nuevo-conductor">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Registrar Conductor
+        </a>
+    </div>
+</div>
+
+@if (!Model.Conductores.Any())
+{
+    <div class="content-card">
+        <div class="empty-state">
+            <div class="empty-state-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+            </div>
+            <h6>Sin conductores en plantilla</h6>
+            <p>Agrega el personal de conducción para comenzar la asignación de viajes.</p>
+            <a asp-action="Create" class="btn btn-primary btn-sm">Registrar conductor</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row g-3" id="conductoresList">
+        @foreach (var item in Model.Conductores)
+        {
+            var vencido = item.FechaVencimientoLicencia < DateTime.Today;
+            var initials = string.Join("", (item.NombreCompleto ?? "CD").Split(' ').Take(2).Select(s => s.Length > 0 ? s[0].ToString() : "")).ToUpper();
+            var diasVencimiento = (item.FechaVencimientoLicencia - DateTime.Today).TotalDays;
+            var alertaVencimiento = !vencido && diasVencimiento <= 30;
+
+            <div class="col-lg-4 col-md-6 conductor-item">
+                <div class="content-card" style="height:100%;@(vencido ? "border-left:3px solid var(--danger);" : alertaVencimiento ? "border-left:3px solid var(--warning);" : "border-left:3px solid var(--success);")">
+                    <div class="content-card-body">
+                        <!-- Header del card -->
+                        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;">
+                            <div style="display:flex;align-items:center;gap:0.875rem;">
+                                <div class="avatar" style="width:44px;height:44px;font-size:1rem;border-radius:var(--radius-sm);">@initials</div>
+                                <div>
+                                    <div style="font-weight:700;color:var(--text-primary);font-size:0.9375rem;" class="searchable">@item.NombreCompleto</div>
+                                    <span class="badge-status badge-info-pill searchable" style="margin-top:0.2rem;display:inline-block;">Cat. @item.CategoriaLicencia</span>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn-action" type="button" data-bs-toggle="dropdown" style="color:var(--text-muted);">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="12" cy="19" r="1" fill="currentColor"/></svg>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow-sm" style="border:1px solid var(--border-color);border-radius:var(--radius-sm);min-width:180px;">
+                                    <li><a class="dropdown-item" asp-action="Details" asp-route-id="@item.Id" style="font-size:0.875rem;padding:0.5rem 1rem;">Ver historial completo</a></li>
+                                    <li><a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id" style="font-size:0.875rem;padding:0.5rem 1rem;">Actualizar perfil</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Datos de licencia -->
+                        <div style="background:var(--bg-subtle);border-radius:var(--radius-sm);padding:0.875rem;margin-bottom:1rem;">
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;text-align:center;">
+                                <div style="border-right:1px solid var(--border-color);padding-right:0.5rem;">
+                                    <div style="font-size:0.6875rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.2rem;">Licencia No.</div>
+                                    <div style="font-weight:600;font-size:0.875rem;color:var(--text-primary);" class="searchable">@item.LicenciaConducir</div>
+                                </div>
+                                <div style="padding-left:0.5rem;">
+                                    <div style="font-size:0.6875rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.2rem;">Vencimiento</div>
+                                    <div style="font-weight:700;font-size:0.875rem;color:@(vencido ? "var(--danger)" : alertaVencimiento ? "var(--warning)" : "var(--success)");">
+                                        @item.FechaVencimientoLicencia.ToString("MMM yyyy").ToUpper()
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer del card -->
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            @if (vencido)
+                            {
+                                <span class="badge-status badge-inactivo">Licencia vencida</span>
+                            }
+                            else if (alertaVencimiento)
+                            {
+                                <span class="badge-status badge-pendiente">Vence en @((int)diasVencimiento)d</span>
+                            }
+                            else
+                            {
+                                <span class="badge-status badge-activo">Habilitado</span>
+                            }
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-secondary btn-sm">
+                                Historial
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left:0.25rem;">
+                                    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@section Scripts {
+    <script>
+        document.getElementById("searchInput")?.addEventListener("keyup", function () {
+            const f = this.value.toLowerCase();
+            document.querySelectorAll(".conductor-item").forEach(card => {
+                const texts = [...card.querySelectorAll(".searchable")].map(t => t.textContent.toLowerCase()).join(" ");
+                card.style.display = texts.includes(f) ? "" : "none";
+            });
+        });
+    </script>
+}
